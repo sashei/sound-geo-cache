@@ -100,7 +100,7 @@
         override.contentType = @"audio/mpeg";
         
         for (S3ObjectSummary* objSum in keys) {
-            //NSLog(@"Key from getSounds for keys is: %@", objSum.key);
+            NSLog(@"Key from getSounds for keys is: %@", objSum.key);
             
             // Request a pre-signed URL to picture that has been uplaoded.
             S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];

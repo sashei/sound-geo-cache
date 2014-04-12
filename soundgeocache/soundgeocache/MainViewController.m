@@ -91,7 +91,6 @@
         _tempAudioPath = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
         NSLog(@"Audio path is: %@", _tempAudioPath);
         
-        //cocks
         NSURL *soundFileURL = [NSURL fileURLWithPath:_tempAudioPath];
         NSError *error = nil;
         _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
@@ -160,6 +159,8 @@
     // the sounds array will be coming from john's database
     
     _closeSounds = sounds;
+    NSLog(@"received sounds in range with count: %d", [_closeSounds count]);
+    
     bool hasSoundInRange = false;
     
     // alter the annotations
