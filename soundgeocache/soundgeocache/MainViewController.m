@@ -46,10 +46,10 @@
         [self.view addSubview:_map];
         
         // record button
-        int recX = self.view.bounds.size.width*.1;
-        int recSizeX = self.view.bounds.size.width*.3;
+        int recX = self.view.bounds.size.width*.05;
+        int recSizeX = self.view.bounds.size.width*.2;
         int recSizeY = recSizeX;
-        int recY = self.view.bounds.size.height*.95 - recSizeX;
+        int recY = self.view.bounds.size.height - (recSizeX + recX);
         CGRect recordFrame = CGRectMake(recX, recY, recSizeX, recSizeY);
         
         _recordButton = [[UIButton alloc] initWithFrame:recordFrame];
@@ -64,13 +64,13 @@
         // play / compass?
         int playSizeX = recSizeX;
         int playSizeY = playSizeX;
-        int playX = self.view.bounds.size.width*.9 - playSizeX;
+        int playX = self.view.bounds.size.width*.95 - playSizeX;
         int playY = recY;
         CGRect playFrame = CGRectMake(playX, playY, playSizeX, playSizeY);
         
         _playButton = [[UIButton alloc] initWithFrame:playFrame];
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
-        [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
+        [_playButton setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
         [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _playButton.hidden = true;
         [self.view addSubview:_playButton];
@@ -184,7 +184,7 @@
     }
     
     // useful to look at for debugging purposes!
-    NSArray *annotations = _map.annotations;
+    //NSArray *annotations = _map.annotations;
     
 }
 
