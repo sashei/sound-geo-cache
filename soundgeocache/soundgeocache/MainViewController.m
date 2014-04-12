@@ -228,12 +228,14 @@ float milesToMeters(float miles) {
     }
     else {
         [_recorder stop];
+        [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png"] forState:UIControlStateNormal];
         audioData = [[NSData alloc] initWithContentsOfFile:_tempAudioPath];
+        
+        //need to do something with data to store into database!!! D:
+        [_database addSound:audioData withLocation:_locationManager.location.coordinate];
+        
         [_database requestSoundsNear:_locationManager.location.coordinate];
     }
-    
-    //need to do something with data to store into database!!! D:
-    [_database addSound:audioData withLocation:_locationManager.location.coordinate];
 }
 
 -(void)playButtonPressed:(id)sender
