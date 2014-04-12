@@ -17,8 +17,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     _view = [MainViewController new];
+    _navController = [[UINavigationController alloc] initWithRootViewController:_view];
+    _navController.navigationBarHidden = YES;
     
-    [self.window setRootViewController:_view];
+    [self.window setRootViewController:_navController];
     [self.window makeKeyAndVisible];
 
     return YES;
