@@ -144,7 +144,7 @@
     SCSound *sound = [_sounds objectAtIndex:indexPath.row];
     NSError *error;
     [_player stop];
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:[sound soundURL]] error:&error];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[sound soundURL] error:&error];
     if (error)
         NSLog(@"Error in didSelectRowAtIndexPath is: %@", [error localizedDescription]);
     else {

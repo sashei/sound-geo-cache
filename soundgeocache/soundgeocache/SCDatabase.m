@@ -48,10 +48,8 @@
 
 - (void) requestSoundsNear:(CLLocationCoordinate2D) location {
     
-    //FIXME GET KEYS, put them in here
-    NSMutableArray *keys;
-    
-    
+    // The prefix for our search.
+    NSString *prefix = [[self getKeyFromLocation:location] substringToIndex:8];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
@@ -59,9 +57,17 @@
         // THIS IS GOING TO INVOLVE some kind of call to the s3 database, to get the keys
         // for a given prefix. best to do it in here.
         
+        
+        S3ListObjectsRequest *listobjsr = [[S3ListObjectsRequest alloc] init];
+        listobjsr.prefix = prefix;
+        //listobjsr.marker = nil; // help! not gonna set it
+        listobjsr.maxKeys = 1000; // this is literally random
+        //listobjsr.delimiter  // not setting this one for now.
+        
+        S3ListObjectsResponse *response = [_s3 listObjects:listobjsr];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self getSoundsForKeys:keys];
+            [self getSoundsForKeys:response.listObjectsResult.objectSummaries];
         });
     });
 }
@@ -77,8 +83,7 @@
         // Set the content type so that the browser will treat the URL as an image.
         S3ResponseHeaderOverrides *override = [[S3ResponseHeaderOverrides alloc] init];
         
-        // FIXME TO CORRECT CONTENT TYPE
-        override.contentType = @"image/jpeg";
+        override.contentType = @"audio/mpeg";
         
         for (NSString* key in keys) {
             // Request a pre-signed URL to picture that has been uplaoded.
@@ -105,12 +110,8 @@
             }
             else
             {
-                //FIXME GET THE LAT LON BACK FROM THE KEY
-                
-                
                 //  AND THEN INSTANTIATE THIS SOUND OBJECT
-                SCSound *temp;
-                
+                SCSound *temp = [[SCSound alloc] initWithLocation:[self getLocationFromKey:key] andSoundURL:url];
                 [sounds addObject:temp];
             }
         }
@@ -126,13 +127,13 @@
     dispatch_async(queue, ^{
         
         // FIXME make the key here
-        NSString *key = @"HELP";
+        NSString *key = [self getKeyFromLocation:location];
         
         // Upload image data.  Remember to set the content type.
         S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:key
                                                                  inBucket:SOUNDS_BUCKET];
-        // FIXME this should be the right content type for sound files
-        por.contentType = @"image/jpeg";
+
+        por.contentType = @"audio/mpeg";
         por.data        = soundData;
         
         // Put the image data into the specified s3 bucket and object.
@@ -156,7 +157,7 @@
 }
 
 // we use our gps coordinates for keys
-- (int) makeKeyForLocation:(CLLocationCoordinate2D)location
+- (NSString*) getKeyFromLocation:(CLLocationCoordinate2D)location
 {
     
     // CAUTION : this should be at the top of the file.
@@ -179,20 +180,18 @@
     
     NSLog(@"key variable is %@", key);
     
-    return [key integerValue];
-    
-    
+    return key;
 }
 
--(CLLocationCoordinate2D) getLocationFromKey:(int)key_int
+- (CLLocationCoordinate2D) getLocationFromKey:(NSString*) key
 {
+    
+    int key_int = [key intValue];
     
     // CAUTION : this should be at the top of the file.
     int accuracy_rating = 10000;
     
-    NSString *key = [[NSString alloc] initWithFormat: @"%d",key_int];
     // get lat and lon from key
-    
     
     int new_lat_sign = [[[key substringFromIndex:0] substringToIndex:1] integerValue];
     int new_lat_front = [[[key substringFromIndex:1] substringToIndex:3] integerValue];

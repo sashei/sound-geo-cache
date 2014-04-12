@@ -12,8 +12,8 @@
 @interface SCSound : NSObject <MKAnnotation>
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property NSString *soundURL;
+@property NSURL *soundURL;
 
-- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSString*) url;
+- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSURL*) url;
 
 @end
