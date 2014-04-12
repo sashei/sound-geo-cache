@@ -12,8 +12,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCSound.h"
 #import "SCSoundsViewController.h"
+#import "SCDatabase.h"
 
-@interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, SCDatabaseListener>
 
 // view stuff
 @property MKMapView *map;
@@ -25,12 +26,14 @@
 @property BOOL shouldUpdateLocation;
 
 // data stuff
+@property SCDatabase *database;
 @property NSMutableArray *closeSounds;
 @property NSMutableArray *soundsToSend;
 
 // audio stuff]
 @property AVAudioRecorder *recorder;
 @property SCSoundsViewController *soundsView;
+@property NSString *tempAudioPath;
 
 -(NSArray *)getBounds;
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;

@@ -20,6 +20,9 @@
     if (self) {
         // Custom initialization
         
+        _database = [[SCDatabase alloc] init];
+        _database.delegate = self;
+        
         // location manager initialization
         _locationManager = [CLLocationManager new];
         [_locationManager setDelegate:self];
@@ -84,11 +87,11 @@
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentDirectory = [paths objectAtIndex:0];
-        NSString *path = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-        NSLog(@"Image file name is: %@", path);
+        _tempAudioPath = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+        NSLog(@"Audio path is: %@", _tempAudioPath);
         
         //cocks
-        NSURL *soundFileURL = [NSURL fileURLWithPath:path];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:_tempAudioPath];
         NSError *error = nil;
         _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
         
@@ -119,14 +122,11 @@ float milesToMeters(float miles) {
     }
     
     // send this to john's database manager, woohoo!
-    NSArray *bounds = [self getBounds];
+    // NSArray *bounds = [self getBounds];
     
     // we will get something back, so fun-ness.
     // this is what I will get back from john:
-//    _closeSounds;
-
-    
-    
+    [_database requestSoundsNear:center];
 }
 
 -(NSArray *)getBounds
@@ -143,29 +143,6 @@ float milesToMeters(float miles) {
     
     CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:topLeftLat longitude:topLeftLong];
     CLLocation *bottomRight = [[CLLocation alloc] initWithLatitude:bottomRightLat longitude:bottomRightLong];
-    
-    
-    // John fucking around w/ formatting
-    NSLog(@"topLeftLat is %f", topLeftLat);
-    
-    // CAUTION : if we change this, our key serialization will change.
-    int accuracy_rating = 10000;
-    
-    int lat_front = (int)topLeftLat;
-    int lat_back = (int)((topLeftLat - lat_front) * accuracy_rating);
-    int lon_front = (int)topLeftLong;
-    int lon_back = (int)((topLeftLong - lon_front) * accuracy_rating);
-    
-    NSString *lat_front_string = [NSString stringWithFormat:@"%03d", lat_front];
-    NSString *lon_front_string = [NSString stringWithFormat:@"%03d", lon_front];
-    
-    NSLog(@"lat is %@%@%d", lat_front_string, @"hi", lat_back);
-    NSLog(@"lat is %@%@%d", lon_front_string, @"hi", lon_back);
-    NSLog(@"Key is %@%@%d%d", lat_front_string, lon_front_string, lon_back, lat_back);
-    
-    
-
-    
     
     return [NSArray arrayWithObjects: topLeft, bottomRight, nil];
 }
@@ -220,7 +197,8 @@ float milesToMeters(float miles) {
     sound4.soundURL = @"sound4";
     
     
-    _closeSounds = [[NSMutableArray alloc] initWithObjects:sound1,sound2,sound3,sound4, nil];
+    //_closeSounds = [[NSMutableArray alloc] initWithObjects:sound1,sound2,sound3,sound4, nil];
+    _closeSounds = sounds;
     
     bool hasSoundInRange = false;
     
@@ -269,14 +247,14 @@ float milesToMeters(float miles) {
             NSLog(@"Problem preparing AVAudioRecorder");
         }
     }
-    
-    if (_recorder.recording) {
+    else {
         [_recorder stop];
         //need to sub in proper filepath:
-        //audioData = [[NSData alloc] initWithContentsOfFile:filePath];
+        audioData = [[NSData alloc] initWithContentsOfFile:_tempAudioPath];
     }
     
     //need to do something with data to store into database!!! D:
+    [_database addSound:audioData withLocation:_locationManager.location.coordinate];
 }
 
 -(void)playButtonPressed:(id)sender

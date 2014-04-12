@@ -63,7 +63,7 @@
 }
 
 - (void) goBack {
-    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark UITableViewDataSource
