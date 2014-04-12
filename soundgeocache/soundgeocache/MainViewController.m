@@ -51,6 +51,7 @@
         //UIImage *redButton = [UIImage imageNamed:@"redbutton.png"];
         //[_recordButton setBackgroundImage:[UIImage imageNamed:@"redbutton.png"] forState:UIControlStateNormal];
         [_recordButton setImage:[UIImage imageNamed:@"redcircle.png"] forState:UIControlStateNormal];
+        [_recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_recordButton];
         
         // play / compass?
@@ -63,29 +64,29 @@
         _playButton = [[UIButton alloc] initWithFrame:playFrame];
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
+        [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         
-<<<<<<< HEAD
-=======
         // audio player stuff:
-        NSDictionary *recordSettings = [NSDictionary
-                                        dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithInt:AVAudioQualityMin],
-                                        AVEncoderAudioQualityKey,
-                                        [NSNumber numberWithInt:16],
-                                        AVEncoderBitRateKey,
-                                        [NSNumber numberWithInt: 2],
-                                        AVNumberOfChannelsKey,
-                                        [NSNumber numberWithFloat:44100.0],
-                                        AVSampleRateKey,
-                                        nil];
-        NSURL *soundFileURL;
-        NSError *error = nil;
-        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+//        NSDictionary *recordSettings = [NSDictionary
+//                                        dictionaryWithObjectsAndKeys:
+//                                        [NSNumber numberWithInt:AVAudioQualityMin],
+//                                        AVEncoderAudioQualityKey,
+//                                        [NSNumber numberWithInt:16],
+//                                        AVEncoderBitRateKey,
+//                                        [NSNumber numberWithInt: 2],
+//                                        AVNumberOfChannelsKey,
+//                                        [NSNumber numberWithFloat:44100.0],
+//                                        AVSampleRateKey,
+//                                        nil];
+//        NSURL *soundFileURL;
+//        NSError *error = nil;
+//        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+//        
+//        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
         
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
->>>>>>> FETCH_HEAD
+        [self receiveSounds:nil];
         
     }
     return self;
@@ -159,30 +160,6 @@ float milesToMeters(float miles) {
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    
-<<<<<<< HEAD
-//    if ([annotation isMemberOfClass:[SCSound class]])
-//    {
-//        SCSound *p = annotation;
-//        NSString *identifier = getSoundURL(p.soundURL);
-//        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-//        
-//        if (annotationView) {
-//            annotationView.annotation = annotation;
-//        } else {
-//            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-//                                                          reuseIdentifier:identifier];
-//        }
-//        
-//        annotationView.image = [UIImage imageNamed:@"smallredcircle.png"];
-//        
-//        return annotationView;
-//    } else {
-//        return nil;
-//    }
-//    
-    return nil;
-=======
     if ([annotation isMemberOfClass:[SCSound class]])
     {
         SCSound *p = annotation;
@@ -208,10 +185,32 @@ float milesToMeters(float miles) {
 
 -(void)receiveSounds:(NSMutableArray *)sounds
 {
-    // this is what I will get back from john:
-    _closeSounds = sounds;
+    // the sounds array will be coming from john's database
     
-    // add the annotations
+    // some sample sound locations for testing location stuff.
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(34.099723, -117.709385);
+    CLLocationCoordinate2D toplft = CLLocationCoordinate2DMake(34.105452, -117.712273);
+    CLLocationCoordinate2D toprt = CLLocationCoordinate2DMake(34.104688, -117.704419);
+    CLLocationCoordinate2D botrt = CLLocationCoordinate2DMake(34.097883, -117.705878);
+    CLLocationCoordinate2D botlft = CLLocationCoordinate2DMake(34.097616, -117.712980);
+    
+    SCSound *sound1 = [SCSound new];
+    sound1.coordinate = toplft;
+    sound1.soundURL = @"sound1";
+    SCSound *sound2 = [SCSound new];
+    sound2.coordinate = toprt;
+    sound2.soundURL = @"sound2";
+    SCSound *sound3 = [SCSound new];
+    sound3.coordinate = botrt;
+    sound3.soundURL = @"sound3";
+    SCSound *sound4 = [SCSound new];
+    sound4.coordinate = botlft;
+    sound4.soundURL = @"sound4";
+    
+    
+    _closeSounds = [[NSMutableArray alloc] initWithObjects:sound1,sound2,sound3,sound4, nil];
+    
+    // alter the annotations
     for (SCSound *p in _closeSounds) {
         [_map addAnnotation:p];
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
@@ -240,7 +239,6 @@ float milesToMeters(float miles) {
     
     [_soundsToSend addObject:sound];
     
->>>>>>> FETCH_HEAD
 }
 
 -(void)recordButtonPressed:(id)sender
@@ -271,6 +269,7 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *) location
 {
+    
     return (([_locationManager.location distanceFromLocation:location]*3.28084) <= 10.0);
 }
 
