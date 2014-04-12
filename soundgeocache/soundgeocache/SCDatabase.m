@@ -33,13 +33,13 @@
             self.s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
             self.s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
             
-            // Create the sounds bucket
-            S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:SOUNDS_BUCKET andRegion:[S3Region USWest2]];
-            S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
-            if(createBucketResponse.error != nil)
-            {
-                NSLog(@"Error: %@", createBucketResponse.error);
-            }
+//            // Create the sounds bucket
+//            S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:SOUNDS_BUCKET andRegion:[S3Region USWest2]];
+//            S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
+//            if(createBucketResponse.error != nil)
+//            {
+//                NSLog(@"Error: %@", createBucketResponse.error);
+//            }
         }
     }
     
