@@ -87,7 +87,7 @@
         NSString *path = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
         NSLog(@"Image file name is: %@", path);
         
-        
+        //cocks
         NSURL *soundFileURL = [NSURL fileURLWithPath:path];
         NSError *error = nil;
         _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
