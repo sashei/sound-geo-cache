@@ -48,4 +48,6 @@
 -(void)recordButtonPressed:(id)sender;
 -(void)playButtonPressed:(id)sender;
 
+- (void)removeAllPinsButUserLocation;
+
 @end

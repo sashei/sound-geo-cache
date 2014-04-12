@@ -89,6 +89,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGPoint newCenter = cell.imageView.center;
+    newCenter.x = 160;
+    [cell.imageView setCenter:newCenter];
+}
+
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,6 +152,8 @@
     [_player stop];
     NSLog(@"URL is: %@", [sound soundURL]);
     
+    _lastSelected = indexPath;
+    
     NSError *playerError;
     NSData *data = [NSData dataWithContentsOfURL:[sound soundURL]];
     _player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
@@ -160,6 +168,12 @@
     }
     
     [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Pause.png"]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [[_tableView cellForRowAtIndexPath:_lastSelected].imageView setImage:[UIImage imageNamed:@"Play.png"]];
+    _lastSelected = nil;
 }
 
 

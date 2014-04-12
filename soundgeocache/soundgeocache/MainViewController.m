@@ -72,7 +72,7 @@
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
         [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _playButton.hidden = true;
+        _playButton.alpha = 0.0f;
         [self.view addSubview:_playButton];
         
         
@@ -133,7 +133,7 @@
     [_soundsToSend removeObjectsInArray:toRemove];
     
     if ([_soundsToSend count] == 0)
-        _playButton.hidden = true;
+        _playButton.alpha = 0.0f;
 
     [_database requestSoundsNear:center];
 }
@@ -170,12 +170,14 @@
     // the sounds array will be coming from john's database
     
     _closeSounds = sounds;
-    NSArray *annotations = sounds;
+
+    [_soundsToSend removeAllObjects];
+    
+    [self removeAllPinsButUserLocation];
     
     for (SCSound *p in _closeSounds) {
         // check to make sure this particular sound isn't already in our map
-//        if (![self containsURL:_map.annotations fromSound:p])
-//            [_map addAnnotation:p];
+        [_map addAnnotation:p];
         
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
         
@@ -185,16 +187,18 @@
         }
     }
     
-    [_map removeAnnotations:annotations];
-    [_map addAnnotations:annotations];
+//    [_map removeAnnotations:annotations];
+//    [_map addAnnotations:annotations];
     
     // useful to look at for debugging purposes!
-    //NSArray *annotations = _map.annotations;
+    NSArray *annotations = _map.annotations;
 }
 
 -(void)closeEnough:(SCSound *)sound
 {
-    _playButton.hidden = false;
+    [UIView beginAnimations:@"Fade" context:NULL];
+    _playButton.alpha = 1.0f;
+    [UIView commitAnimations];
     
     [_soundsToSend addObject:sound];
     
@@ -248,11 +252,22 @@ float milesToMeters(float miles) {
     for (id note in annotations) {
         if ([note isMemberOfClass:[SCSound class]]) {
             SCSound *innerSound = note;
-            if ([innerSound.soundURL isEqual:sound.soundURL])
+            
+            if ([innerSound.soundURL.absoluteString isEqual:sound.soundURL.absoluteString])
                 return true;
         }
     }
     return false;
+}
+
+- (void)removeAllPinsButUserLocation
+{
+    id userLocation = [_map userLocation];
+    [_map removeAnnotations:[_map annotations]];
+    
+    if ( userLocation != nil ) {
+        [_map addAnnotation:userLocation]; // will cause user location pin to blink
+    }
 }
 
 -(NSArray *)getBounds

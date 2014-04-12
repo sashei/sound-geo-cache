@@ -16,6 +16,7 @@
 @property IBOutlet UIButton *backButton;
 @property NSMutableArray *sounds;
 @property AVAudioPlayer *player;
+@property NSIndexPath *lastSelected;
 
 - (void) loadSounds:(NSMutableArray*) sounds;
 
