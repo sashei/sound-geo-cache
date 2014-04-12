@@ -91,7 +91,6 @@
         _tempAudioPath = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
         NSLog(@"Audio path is: %@", _tempAudioPath);
         
-        //cocks
         NSURL *soundFileURL = [NSURL fileURLWithPath:_tempAudioPath];
         NSError *error = nil;
         _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
