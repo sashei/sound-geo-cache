@@ -24,6 +24,9 @@
         _database = [[SCDatabase alloc] init];
         _database.delegate = self;
         
+        // init soundstosend
+        _soundsToSend = [NSMutableArray new];
+        
         // location manager initialization
         _locationManager = [CLLocationManager new];
         [_locationManager setDelegate:self];
@@ -123,6 +126,9 @@
         if (![self isWithinTenFeet:loc])
             [_soundsToSend removeObject:s];
     }
+    
+    if ([_soundsToSend count] == 0)
+        _playButton.hidden = true;
 
     [_database requestSoundsNear:center];
 }
@@ -160,7 +166,6 @@
     
     _closeSounds = sounds;
     
-    // alter the annotations
     for (SCSound *p in _closeSounds) {
         // check to make sure this particular sound isn't already in our map
         if (![self containsURL:_map.annotations fromSound:p])
@@ -174,11 +179,6 @@
         }
     }
     
-    if ([_soundsToSend count] > 0)
-        _playButton.hidden = false;
-    else
-        _playButton.hidden = true;
-    
     // useful to look at for debugging purposes!
     NSArray *annotations = _map.annotations;
     
@@ -188,19 +188,8 @@
 {
     _playButton.hidden = false;
     
-    MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL.fragment];
-    
-    if (pView) {
-        pView.annotation = sound;
-    } else {
-        pView = [[MKAnnotationView alloc] initWithAnnotation:sound
-                                                reuseIdentifier:sound.soundURL.fragment];
-    }
-    
-    pView.image = [UIImage imageNamed:@"smallwhitecircle.png"];
-    
     [_soundsToSend addObject:sound];
-
+    
 }
 
 #pragma mark - button functionality
@@ -248,7 +237,7 @@ float milesToMeters(float miles) {
     double passedLocLat = loc.coordinate.latitude;
     double passedLocLong = loc.coordinate.longitude;
 
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 100.0);
 }
 
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
