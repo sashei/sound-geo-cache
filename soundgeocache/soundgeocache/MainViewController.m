@@ -153,7 +153,7 @@
                                                           reuseIdentifier:identifier];
         }
         
-        annotationView.image = [UIImage imageNamed:@"smallredcircle.png"];
+        annotationView.image = [UIImage imageNamed:@"smallbluecircle.png"];
         
         return annotationView;
     } else {
