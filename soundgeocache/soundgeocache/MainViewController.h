@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SCSound.h"
+#import "SCSoundsViewController.h"
 
 @interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -29,6 +30,7 @@
 
 // audio stuff]
 @property AVAudioRecorder *recorder;
+@property SCSoundsViewController *soundsView;
 
 -(NSArray *)getBounds;
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;

@@ -95,6 +95,9 @@
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
         
+        // set up table view controller for sound detail views
+        _soundsView = [SCSoundsViewController new];
+        
         [self receiveSounds:nil];
         
     }
@@ -279,15 +282,18 @@ float milesToMeters(float miles) {
 -(void)playButtonPressed:(id)sender
 {
     // send packaged stuff to rupe!
-    
+    [_soundsView loadSounds:_soundsToSend];
+    [self.navigationController pushViewController:_soundsView animated:YES];
 }
 
--(bool)isWithinTenFeet:(CLLocation *) location
+-(bool)isWithinTenFeet:(CLLocation *) loc
 {
     double currentLat = _locationManager.location.coordinate.latitude;
     double currentLong = _locationManager.location.coordinate.longitude;
-    NSLog([NSString stringWithFormat:@"distance in meters 4is: %f",[_locationManager.location distanceFromLocation:location]]);
-    return (([_locationManager.location distanceFromLocation:location]*3.28084) <= 10.0);
+    double passedLat = loc.coordinate.latitude;
+    double passedLong = loc.coordinate.longitude;
+    //NSLog([NSString stringWithFormat:@"current lat: %f\n current long: %f\n"]);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
 
 - (void)viewDidLoad
