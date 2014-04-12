@@ -82,12 +82,10 @@ float milesToMeters(float miles) {
         _shouldUpdateLocation = false;
     }
     
-    // send this to the database manager, woohoo!
+    // send this to john's database manager, woohoo!
     NSArray *bounds = [self getBounds];
     
     // we will get something back, so fun-ness.
-    // this is what I will get back from john:
-    _closeSounds;
     
     
 }
@@ -113,27 +111,65 @@ float milesToMeters(float miles) {
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
-//    if ([annotation isMemberOfClass:[SCSound class]])
-//    {
-//        SCSound *p = annotation;
-//        NSString *identifier = getSoundURL(p.soundURL);
-//        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-//        
-//        if (annotationView) {
-//            annotationView.annotation = annotation;
-//        } else {
-//            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-//                                                          reuseIdentifier:identifier];
-//        }
-//        
-//        annotationView.image = [UIImage imageNamed:@"smallredcircle.png"];
-//        
-//        return annotationView;
-//    } else {
-//        return nil;
-//    }
-//    
-//    return nil;
+    if ([annotation isMemberOfClass:[SCSound class]])
+    {
+        SCSound *p = annotation;
+        NSString *identifier = p.soundURL;
+        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        
+        if (annotationView) {
+            annotationView.annotation = annotation;
+        } else {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                          reuseIdentifier:identifier];
+        }
+        
+        annotationView.image = [UIImage imageNamed:@"smallredcircle.png"];
+        
+        return annotationView;
+    } else {
+        return nil;
+    }
+    
+    return nil;
+}
+
+-(void)receiveSounds:(NSMutableArray *)sounds
+{
+    // this is what I will get back from john:
+    _closeSounds = sounds;
+    
+    // add the annotations
+    for (SCSound *p in _closeSounds) {
+        [_map addAnnotation:p];
+        CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
+        
+        // check close-ness of each new thing around us
+        if ([self isWithinTenFeet:pLoc]) {
+            [self closeEnough:p];
+        }
+    }
+}
+
+-(void)closeEnough:(SCSound *)sound
+{
+    [self.view addSubview:_playButton];
+    
+    MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL];
+    
+    if (pView) {
+        pView.annotation = sound;
+    } else {
+        pView = [[MKAnnotationView alloc] initWithAnnotation:sound
+                                                reuseIdentifier:sound.soundURL];
+    }
+    
+    pView.image = [UIImage imageNamed:@"smallredcircle.png"];
+    
+    // this is where I will retrieve the proper sounds from the database and package them to send to the
+    // music player.
+    
+    
 }
 
 -(void)recordButtonPressed:(id)sender
@@ -145,6 +181,11 @@ float milesToMeters(float miles) {
 {
     // send packaged stuff to rupe
     
+}
+
+-(bool)isWithinTenFeet:(CLLocation *) location
+{
+    return (([_locationManager.location distanceFromLocation:location]*3.28084) <= 10.0);
 }
 
 - (void)viewDidLoad
