@@ -225,8 +225,8 @@ float milesToMeters(float miles) {
     }
     else {
         [_recorder stop];
-        //need to sub in proper filepath:
         audioData = [[NSData alloc] initWithContentsOfFile:_tempAudioPath];
+        [_database requestSoundsNear:_locationManager.location.coordinate];
     }
     
     //need to do something with data to store into database!!! D:
@@ -240,7 +240,7 @@ float milesToMeters(float miles) {
     [self.navigationController pushViewController:_soundsView animated:YES];
 }
 
--(bool)isWithinTenFeet:(CLLocation *) loc
+-(bool)isWithinTenFeet:(CLLocation *)loc
 {
     return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
