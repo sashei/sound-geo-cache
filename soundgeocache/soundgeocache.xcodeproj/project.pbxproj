@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		67B1C6C818F9076D00082620 /* SCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6C718F9076D00082620 /* SCDatabase.m */; };
-		67B1C6CC18F907A800082620 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6C918F907A800082620 /* AWSRuntime.framework */; };
-		67B1C6CD18F907A800082620 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6CA18F907A800082620 /* AWSS3.framework */; };
-		67B1C6CE18F907A800082620 /* AWSSimpleDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6CB18F907A800082620 /* AWSSimpleDB.framework */; };
-		67B1C6D118F916FC00082620 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6D018F916FC00082620 /* Constants.m */; };
-		67B1C6D418F9187F00082620 /* SCSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6D318F9187F00082620 /* SCSound.m */; };
 		7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
 		7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */; };
 		7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
@@ -44,15 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		67B1C6C618F9076D00082620 /* SCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDatabase.h; path = soundgeocache/SCDatabase.h; sourceTree = "<group>"; };
-		67B1C6C718F9076D00082620 /* SCDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDatabase.m; path = soundgeocache/SCDatabase.m; sourceTree = "<group>"; };
-		67B1C6C918F907A800082620 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
-		67B1C6CA18F907A800082620 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
-		67B1C6CB18F907A800082620 /* AWSSimpleDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSSimpleDB.framework; sourceTree = "<group>"; };
-		67B1C6CF18F916FC00082620 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		67B1C6D018F916FC00082620 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		67B1C6D218F9187F00082620 /* SCSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSound.h; sourceTree = "<group>"; };
-		67B1C6D318F9187F00082620 /* SCSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSound.m; sourceTree = "<group>"; };
 		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -85,11 +70,8 @@
 			files = (
 				7D7F4D9718F90486003F6D12 /* QuartzCore.framework in Frameworks */,
 				7D0C24BD18F8E8AE00B83AC9 /* CoreLocation.framework in Frameworks */,
-				67B1C6CE18F907A800082620 /* AWSSimpleDB.framework in Frameworks */,
 				7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */,
-				67B1C6CD18F907A800082620 /* AWSS3.framework in Frameworks */,
 				7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */,
-				67B1C6CC18F907A800082620 /* AWSRuntime.framework in Frameworks */,
 				7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,12 +92,6 @@
 		7D0C247E18F8E61300B83AC9 = {
 			isa = PBXGroup;
 			children = (
-				67B1C6CF18F916FC00082620 /* Constants.h */,
-				67B1C6D018F916FC00082620 /* Constants.m */,
-				67B1C6C618F9076D00082620 /* SCDatabase.h */,
-				67B1C6C718F9076D00082620 /* SCDatabase.m */,
-				67B1C6D218F9187F00082620 /* SCSound.h */,
-				67B1C6D318F9187F00082620 /* SCSound.m */,
 				7D0C249018F8E61300B83AC9 /* soundgeocache */,
 				7D0C24A918F8E61300B83AC9 /* soundgeocacheTests */,
 				7D0C248918F8E61300B83AC9 /* Frameworks */,
@@ -135,13 +111,7 @@
 		7D0C248918F8E61300B83AC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				7D7F4D9618F90486003F6D12 /* QuartzCore.framework */,
-=======
-				67B1C6C918F907A800082620 /* AWSRuntime.framework */,
-				67B1C6CA18F907A800082620 /* AWSS3.framework */,
-				67B1C6CB18F907A800082620 /* AWSSimpleDB.framework */,
->>>>>>> FETCH_HEAD
 				7D0C24BC18F8E8AE00B83AC9 /* CoreLocation.framework */,
 				7D0C248A18F8E61300B83AC9 /* Foundation.framework */,
 				7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */,
@@ -302,11 +272,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67B1C6D118F916FC00082620 /* Constants.m in Sources */,
-				67B1C6D418F9187F00082620 /* SCSound.m in Sources */,
 				7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */,
 				7D0C24BB18F8E75500B83AC9 /* MainViewController.m in Sources */,
-				67B1C6C818F9076D00082620 /* SCDatabase.m in Sources */,
 				7D0C249718F8E61300B83AC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,10 +395,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
@@ -446,10 +409,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
