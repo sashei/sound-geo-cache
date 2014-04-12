@@ -64,6 +64,8 @@
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
         
+        
+        
     }
     return self;
 }
@@ -87,7 +89,7 @@ float milesToMeters(float miles) {
     
     // we will get something back, so fun-ness.
     // this is what I will get back from john:
-    _closeSounds;
+//    _closeSounds;
     
     
 }
@@ -106,6 +108,29 @@ float milesToMeters(float miles) {
     
     CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:topLeftLat longitude:topLeftLong];
     CLLocation *bottomRight = [[CLLocation alloc] initWithLatitude:bottomRightLat longitude:bottomRightLong];
+    
+    
+    // John fucking around w/ formatting
+    NSLog(@"topLeftLat is %f", topLeftLat);
+    
+    // CAUTION : if we change this, our key serialization will change.
+    int accuracy_rating = 10000;
+    
+    int lat_front = (int)topLeftLat;
+    int lat_back = (int)((topLeftLat - lat_front) * accuracy_rating);
+    int lon_front = (int)topLeftLong;
+    int lon_back = (int)((topLeftLong - lon_front) * accuracy_rating);
+    
+    NSString *lat_front_string = [NSString stringWithFormat:@"%03d", lat_front];
+    NSString *lon_front_string = [NSString stringWithFormat:@"%03d", lon_front];
+    
+    NSLog(@"lat is %@%@%d", lat_front_string, @"hi", lat_back);
+    NSLog(@"lat is %@%@%d", lon_front_string, @"hi", lon_back);
+    NSLog(@"Key is %@%@%d%d", lat_front_string, lon_front_string, lon_back, lat_back);
+    
+    
+
+    
     
     return [NSArray arrayWithObjects: topLeft, bottomRight, nil];
 }
@@ -133,7 +158,7 @@ float milesToMeters(float miles) {
 //        return nil;
 //    }
 //    
-//    return nil;
+    return nil;
 }
 
 -(void)recordButtonPressed:(id)sender

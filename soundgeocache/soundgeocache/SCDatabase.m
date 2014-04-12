@@ -151,6 +151,25 @@
     });
 }
 
+// we use our gps coordinates for keys
+- (int) makeKeyForLocation:(CLLocationCoordinate2D)location
+{
+    int key = 0;
+    
+    // we have the lat and lon
+    int lat = location.latitude;
+    int lon = location.longitude;
+    NSLog(@"makeKeyForLocation : lat is %d", lat);
+    
+    // we format the lat and lon
+    NSString *latString = [NSString stringWithFormat:@"%3d%.4d", lat, lat];
+    NSString *lonString = [NSString stringWithFormat:@"%3d%.4d", lon, lon];
+    NSLog(@"makeKeyForLocation : latString is %@", latString);
+    
+    
+    return key;
+}
+
 - (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title

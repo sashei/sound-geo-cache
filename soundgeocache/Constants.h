@@ -15,6 +15,5 @@
 /**
  * Utility method to create a bucket name using the Access Key Id.  This will help ensure uniqueness.
  */
-+(NSString *)pictureBucket;
 
 @end
