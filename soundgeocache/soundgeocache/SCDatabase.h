@@ -25,7 +25,7 @@
 @property AmazonS3Client *s3;
 @property NSObject <SCDatabaseListener> *delegate;
 
-- (void) requestSoundsInRectWithCorners:(CLLocationCoordinate2D) topLeft and: (CLLocationCoordinate2D) bottomRight;
+- (void) requestSoundsNear:(CLLocationCoordinate2D) location;
 
 - (void)addSound:(NSData *) soundData withLocation:(CLLocationCoordinate2D)location;
 

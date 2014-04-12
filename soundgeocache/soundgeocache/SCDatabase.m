@@ -46,10 +46,11 @@
     return self;
 }
 
-- (void) requestSoundsInRectWithCorners:(CLLocationCoordinate2D) topLeft and: (CLLocationCoordinate2D) bottomRight {
+- (void) requestSoundsNear:(CLLocationCoordinate2D) location {
     
     //FIXME GET KEYS, put them in here
-     NSMutableArray *keys;
+    NSMutableArray *keys;
+    
     
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
