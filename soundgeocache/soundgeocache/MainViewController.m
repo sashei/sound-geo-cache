@@ -65,6 +65,8 @@
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
         [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _playButton.hidden = true;
+        [self.view addSubview:_playButton];
         
         
         // audio player stuff:
@@ -210,6 +212,8 @@ float milesToMeters(float miles) {
     
     _closeSounds = [[NSMutableArray alloc] initWithObjects:sound1,sound2,sound3,sound4, nil];
     
+    bool hasSoundInRange = false;
+    
     // alter the annotations
     for (SCSound *p in _closeSounds) {
         [_map addAnnotation:p];
@@ -218,13 +222,17 @@ float milesToMeters(float miles) {
         // check close-ness of each new thing around us
         if ([self isWithinTenFeet:pLoc]) {
             [self closeEnough:p];
+            hasSoundInRange = true;
         }
     }
+    
+    if (!hasSoundInRange)
+        _playButton.hidden = true;
 }
 
 -(void)closeEnough:(SCSound *)sound
 {
-    [self.view addSubview:_playButton];
+    _playButton.hidden = false;
     
     MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL];
     
@@ -269,7 +277,9 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *) location
 {
-    
+    double currentLat = _locationManager.location.coordinate.latitude;
+    double currentLong = _locationManager.location.coordinate.longitude;
+    NSLog([NSString stringWithFormat:@"distance in meters 4is: %f",[_locationManager.location distanceFromLocation:location]]);
     return (([_locationManager.location distanceFromLocation:location]*3.28084) <= 10.0);
 }
 
