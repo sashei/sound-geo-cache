@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import <AWSRuntime/AWSRuntime.h>
 
+
 @implementation SCDatabase
 
 - (id) init {
@@ -223,8 +224,8 @@
     int new_lon_front = [[[key substringFromIndex:5] substringToIndex:3] integerValue];
 
     // The date is the last 8 digits. 3 Random digits at the end of the key.
-    int new_lon_back = (key_int / 10^11) % accuracy_rating;
-    int new_lat_back = ((key_int / 10^11) % accuracy_rating) % accuracy_rating;
+    int new_lon_back = (int)(key_int / pow(10,11)) % (int)accuracy_rating;
+    int new_lat_back = (int)(key_int / pow(10,15)) % (int)accuracy_rating;
     
     double new_lat = new_lat_front + ((double)new_lat_back / accuracy_rating);
     double new_lon = new_lon_front + ((double)new_lon_back / accuracy_rating);
@@ -238,6 +239,17 @@
     CLLocationCoordinate2D location =CLLocationCoordinate2DMake(new_lat, new_lon);
     return location;
 }
+
+//- (*NSDate) getDateFromKey:(NSString*) key
+//{
+//    int key_int = [key integerValue];
+//    
+//    //get rid of last 3 (random) digits.
+//    key_int = key_int / 1000;
+//    
+//    int date_int = key_int % (10^8)
+//    
+//}
 
 - (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
 {
