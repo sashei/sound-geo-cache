@@ -124,6 +124,10 @@
         if (![self isWithinTenFeet:loc])
             [_soundsToSend removeObject:s];
     }
+    if ([_soundsToSend count] > 0)
+        _playButton.hidden = false;
+    else
+        _playButton.hidden = true;
 
     [_database requestSoundsNear:center];
 }
@@ -160,7 +164,6 @@
     // the sounds array will be coming from john's database
     
     _closeSounds = sounds;
-    bool hasSoundInRange = false;
     
     // alter the annotations
     for (SCSound *p in _closeSounds) {
@@ -173,15 +176,11 @@
         // check close-ness of each new thing around us
         if ([self isWithinTenFeet:pLoc]) {
             [self closeEnough:p];
-            hasSoundInRange = true;
         }
     }
     
-    if (!hasSoundInRange)
-        _playButton.hidden = true;
-    
     // useful to look at for debugging purposes!
-    //NSArray *annotations = _map.annotations;
+    NSArray *annotations = _map.annotations;
     
 }
 
@@ -201,6 +200,7 @@
     pView.image = [UIImage imageNamed:@"smallwhitecircle.png"];
     
     [_soundsToSend addObject:sound];
+
 }
 
 #pragma mark - button functionality
@@ -250,8 +250,8 @@ float milesToMeters(float miles) {
 {
     for (id note in annotations) {
         if ([note isKindOfClass:[SCSound class]]) {
-            SCSound *sound = note;
-            if ([sound.soundURL isEqual:sound.soundURL])
+            SCSound *innerSound = note;
+            if ([innerSound.soundURL isEqual:sound.soundURL])
                 return true;
         }
     }
