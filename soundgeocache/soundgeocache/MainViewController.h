@@ -30,20 +30,20 @@
 @property NSMutableArray *closeSounds;
 @property NSMutableArray *soundsToSend;
 
-// audio stuff]
+// audio stuff
 @property AVAudioRecorder *recorder;
 @property SCSoundsViewController *soundsView;
 @property NSString *tempAudioPath;
 
--(NSArray *)getBounds;
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations;
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;
-
 
 -(void)receiveSounds:(NSMutableArray *)sounds;
 -(void)closeEnough:(SCSound *)sound;
+
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound;
 -(bool)isWithinTenFeet:(CLLocation *)location;
-
+-(NSArray *)getBounds;
 
 -(void)recordButtonPressed:(id)sender;
 -(void)playButtonPressed:(id)sender;

@@ -20,8 +20,7 @@
     if (self) {
         // Custom initialization
         
-       
-        
+       // database initialization
         _database = [[SCDatabase alloc] init];
         _database.delegate = self;
         
@@ -38,7 +37,7 @@
         _map.showsPointsOfInterest = false;
         _map.showsBuildings = false;
         
-        // just a for setting the region when we get the CLLocationManager stuff goin' on.
+        // just for setting the region when we get the CLLocationManager stuff goin' on.
         _shouldUpdateLocation = true;
         
         [self.view addSubview:_map];
@@ -107,9 +106,7 @@
     return self;
 }
 
-float milesToMeters(float miles) {
-    return 1609.344f * miles;
-}
+#pragma mark - location & map delegate methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -127,32 +124,8 @@ float milesToMeters(float miles) {
         if (![self isWithinTenFeet:loc])
             [_soundsToSend removeObject:s];
     }
-    
-    // send this to john's database manager, woohoo!
-    // NSArray *bounds = [self getBounds];
-    
-    // we will get something back, so fun-ness.
-    // this is what I will get back from john:
 
     [_database requestSoundsNear:center];
-}
-
--(NSArray *)getBounds
-{
-    MKCoordinateRegion currentRegion = _map.region;
-    double latDif = currentRegion.span.latitudeDelta/2.0;
-    double longDif = currentRegion.span.longitudeDelta/2.0;
-    
-    double topLeftLat = currentRegion.center.latitude + latDif;
-    double topLeftLong = currentRegion.center.longitude - longDif;
-    
-    double bottomRightLat = currentRegion.center.latitude - latDif;
-    double bottomRightLong = currentRegion.center.longitude + longDif;
-    
-    CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:topLeftLat longitude:topLeftLong];
-    CLLocation *bottomRight = [[CLLocation alloc] initWithLatitude:bottomRightLat longitude:bottomRightLong];
-    
-    return [NSArray arrayWithObjects: topLeft, bottomRight, nil];
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -179,6 +152,8 @@ float milesToMeters(float miles) {
     
     return nil;
 }
+
+# pragma mark - database delegate methods & logic
 
 -(void)receiveSounds:(NSMutableArray *)sounds
 {
@@ -228,6 +203,8 @@ float milesToMeters(float miles) {
     [_soundsToSend addObject:sound];
 }
 
+#pragma mark - button functionality
+
 -(void)recordButtonPressed:(id)sender
 {
     NSData *audioData;
@@ -251,6 +228,24 @@ float milesToMeters(float miles) {
     }
 }
 
+-(void)playButtonPressed:(id)sender
+{
+    // send packaged stuff to rupe!
+    [_soundsView loadSounds:_soundsToSend];
+    [self.navigationController pushViewController:_soundsView animated:YES];
+}
+
+#pragma mark - helper functions
+
+float milesToMeters(float miles) {
+    return 1609.344f * miles;
+}
+
+-(bool)isWithinTenFeet:(CLLocation *)loc
+{
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
+}
+
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
 {
     for (id note in annotations) {
@@ -263,16 +258,22 @@ float milesToMeters(float miles) {
     return false;
 }
 
--(void)playButtonPressed:(id)sender
+-(NSArray *)getBounds
 {
-    // send packaged stuff to rupe!
-    [_soundsView loadSounds:_soundsToSend];
-    [self.navigationController pushViewController:_soundsView animated:YES];
-}
-
--(bool)isWithinTenFeet:(CLLocation *)loc
-{
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
+    MKCoordinateRegion currentRegion = _map.region;
+    double latDif = currentRegion.span.latitudeDelta/2.0;
+    double longDif = currentRegion.span.longitudeDelta/2.0;
+    
+    double topLeftLat = currentRegion.center.latitude + latDif;
+    double topLeftLong = currentRegion.center.longitude - longDif;
+    
+    double bottomRightLat = currentRegion.center.latitude - latDif;
+    double bottomRightLong = currentRegion.center.longitude + longDif;
+    
+    CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:topLeftLat longitude:topLeftLong];
+    CLLocation *bottomRight = [[CLLocation alloc] initWithLatitude:bottomRightLat longitude:bottomRightLong];
+    
+    return [NSArray arrayWithObjects: topLeft, bottomRight, nil];
 }
 
 - (void)viewDidLoad
