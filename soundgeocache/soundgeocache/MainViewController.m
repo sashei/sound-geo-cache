@@ -70,23 +70,30 @@
         
         
         // audio player stuff:
-//        NSDictionary *recordSettings = [NSDictionary
-//                                        dictionaryWithObjectsAndKeys:
-//                                        [NSNumber numberWithInt:AVAudioQualityMin],
-//                                        AVEncoderAudioQualityKey,
-//                                        [NSNumber numberWithInt:16],
-//                                        AVEncoderBitRateKey,
-//                                        [NSNumber numberWithInt: 2],
-//                                        AVNumberOfChannelsKey,
-//                                        [NSNumber numberWithFloat:44100.0],
-//                                        AVSampleRateKey,
-//                                        nil];
-//        NSURL *soundFileURL;
-//        NSError *error = nil;
-//        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
-//        
-//        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-//        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+        NSDictionary *recordSettings = [NSDictionary
+                                        dictionaryWithObjectsAndKeys:
+                                        [NSNumber numberWithInt:AVAudioQualityMin],
+                                        AVEncoderAudioQualityKey,
+                                        [NSNumber numberWithInt:16],
+                                        AVEncoderBitRateKey,
+                                        [NSNumber numberWithInt: 2],
+                                        AVNumberOfChannelsKey,
+                                        [NSNumber numberWithFloat:44100.0],
+                                        AVSampleRateKey,
+                                        nil];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+        NSLog(@"Image file name is: %@", path);
+        
+        
+        NSURL *soundFileURL = [NSURL fileURLWithPath:path];
+        NSError *error = nil;
+        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
         
         [self receiveSounds:nil];
         
