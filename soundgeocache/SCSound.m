@@ -10,4 +10,13 @@
 
 @implementation SCSound 
 
+- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSString*) url {
+    self = [super init];
+    if (self) {
+        _coordinate = loc;
+        _soundURL = url;
+    }
+    return self;
+}
+
 @end

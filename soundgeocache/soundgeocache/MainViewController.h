@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import <AVFoundation/AVFoundation.h>
+#import "SCSound.h"
 
 @interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -26,8 +27,15 @@
 @property NSMutableArray *closeSounds;
 @property NSMutableArray *soundsToSend;
 
+// audio stuff]
+@property AVAudioRecorder *recorder;
+
 -(NSArray *)getBounds;
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;
+
+-(void)receiveSounds:(NSMutableArray *)sounds;
+-(void)closeEnough:(SCSound *)sound;
+-(bool)isWithinTenFeet:(CLLocation *)location;
 
 //todo:
 -(void)recordButtonPressed:(id)sender;

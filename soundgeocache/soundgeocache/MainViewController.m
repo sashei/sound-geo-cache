@@ -65,6 +65,27 @@
         [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
         
         
+<<<<<<< HEAD
+=======
+        // audio player stuff:
+        NSDictionary *recordSettings = [NSDictionary
+                                        dictionaryWithObjectsAndKeys:
+                                        [NSNumber numberWithInt:AVAudioQualityMin],
+                                        AVEncoderAudioQualityKey,
+                                        [NSNumber numberWithInt:16],
+                                        AVEncoderBitRateKey,
+                                        [NSNumber numberWithInt: 2],
+                                        AVNumberOfChannelsKey,
+                                        [NSNumber numberWithFloat:44100.0],
+                                        AVSampleRateKey,
+                                        nil];
+        NSURL *soundFileURL;
+        NSError *error = nil;
+        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+>>>>>>> FETCH_HEAD
         
     }
     return self;
@@ -84,12 +105,13 @@ float milesToMeters(float miles) {
         _shouldUpdateLocation = false;
     }
     
-    // send this to the database manager, woohoo!
+    // send this to john's database manager, woohoo!
     NSArray *bounds = [self getBounds];
     
     // we will get something back, so fun-ness.
     // this is what I will get back from john:
 //    _closeSounds;
+
     
     
 }
@@ -138,6 +160,7 @@ float milesToMeters(float miles) {
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
+<<<<<<< HEAD
 //    if ([annotation isMemberOfClass:[SCSound class]])
 //    {
 //        SCSound *p = annotation;
@@ -159,17 +182,96 @@ float milesToMeters(float miles) {
 //    }
 //    
     return nil;
+=======
+    if ([annotation isMemberOfClass:[SCSound class]])
+    {
+        SCSound *p = annotation;
+        NSString *identifier = p.soundURL;
+        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        
+        if (annotationView) {
+            annotationView.annotation = annotation;
+        } else {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                          reuseIdentifier:identifier];
+        }
+        
+        annotationView.image = [UIImage imageNamed:@"smallredcircle.png"];
+        
+        return annotationView;
+    } else {
+        return nil;
+    }
+    
+    return nil;
+}
+
+-(void)receiveSounds:(NSMutableArray *)sounds
+{
+    // this is what I will get back from john:
+    _closeSounds = sounds;
+    
+    // add the annotations
+    for (SCSound *p in _closeSounds) {
+        [_map addAnnotation:p];
+        CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
+        
+        // check close-ness of each new thing around us
+        if ([self isWithinTenFeet:pLoc]) {
+            [self closeEnough:p];
+        }
+    }
+}
+
+-(void)closeEnough:(SCSound *)sound
+{
+    [self.view addSubview:_playButton];
+    
+    MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL];
+    
+    if (pView) {
+        pView.annotation = sound;
+    } else {
+        pView = [[MKAnnotationView alloc] initWithAnnotation:sound
+                                                reuseIdentifier:sound.soundURL];
+    }
+    
+    pView.image = [UIImage imageNamed:@"smallredcircle.png"];
+    
+    [_soundsToSend addObject:sound];
+    
+>>>>>>> FETCH_HEAD
 }
 
 -(void)recordButtonPressed:(id)sender
 {
-    // todo!
+    NSData *audioData;
+    if (!_recorder.recording) {
+        if ([_recorder prepareToRecord]) {
+            [_recorder record];
+        } else {
+            NSLog(@"Problem preparing AVAudioRecorder");
+        }
+    }
+    
+    if (_recorder.recording) {
+        [_recorder stop];
+        //need to sub in proper filepath:
+        //audioData = [[NSData alloc] initWithContentsOfFile:filePath];
+    }
+    
+    //need to do something with data to store into database!!! D:
 }
 
 -(void)playButtonPressed:(id)sender
 {
-    // send packaged stuff to rupe
+    // send packaged stuff to rupe!
     
+}
+
+-(bool)isWithinTenFeet:(CLLocation *) location
+{
+    return (([_locationManager.location distanceFromLocation:location]*3.28084) <= 10.0);
 }
 
 - (void)viewDidLoad

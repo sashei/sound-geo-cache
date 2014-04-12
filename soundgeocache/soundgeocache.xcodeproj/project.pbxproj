@@ -13,6 +13,9 @@
 		67B1C6CE18F907A800082620 /* AWSSimpleDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6CB18F907A800082620 /* AWSSimpleDB.framework */; };
 		67B1C6D118F916FC00082620 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6D018F916FC00082620 /* Constants.m */; };
 		67B1C6D418F9187F00082620 /* SCSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6D318F9187F00082620 /* SCSound.m */; };
+		67B1C6E018F92EA800082620 /* SCSoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6DE18F92EA800082620 /* SCSoundsViewController.m */; };
+		67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */; };
+		67B1C6E418F9389700082620 /* SCSoundTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6E318F9389700082620 /* SCSoundTableViewCell.m */; };
 		7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
 		7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */; };
 		7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
@@ -53,6 +56,11 @@
 		67B1C6D018F916FC00082620 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../Constants.m; sourceTree = "<group>"; };
 		67B1C6D218F9187F00082620 /* SCSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSound.h; path = ../SCSound.h; sourceTree = "<group>"; };
 		67B1C6D318F9187F00082620 /* SCSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSound.m; path = ../SCSound.m; sourceTree = "<group>"; };
+		67B1C6DD18F92EA800082620 /* SCSoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundsViewController.h; sourceTree = "<group>"; };
+		67B1C6DE18F92EA800082620 /* SCSoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSoundsViewController.m; sourceTree = "<group>"; };
+		67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCSoundsViewController.xib; sourceTree = "<group>"; };
+		67B1C6E218F9389700082620 /* SCSoundTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundTableViewCell.h; sourceTree = "<group>"; };
+		67B1C6E318F9389700082620 /* SCSoundTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSoundTableViewCell.m; sourceTree = "<group>"; };
 		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,6 +163,11 @@
 				7D0C249A18F8E61300B83AC9 /* AppDelegate.m */,
 				7D0C24B918F8E75500B83AC9 /* MainViewController.h */,
 				7D0C24BA18F8E75500B83AC9 /* MainViewController.m */,
+				67B1C6DD18F92EA800082620 /* SCSoundsViewController.h */,
+				67B1C6DE18F92EA800082620 /* SCSoundsViewController.m */,
+				67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */,
+				67B1C6E218F9389700082620 /* SCSoundTableViewCell.h */,
+				67B1C6E318F9389700082620 /* SCSoundTableViewCell.m */,
 				7D0C249C18F8E61300B83AC9 /* Images.xcassets */,
 				7D7F4D9A18F907E0003F6D12 /* img */,
 				7D0C249118F8E61300B83AC9 /* Supporting Files */,
@@ -276,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */,
 				7D942F4D18F91AA5004D30FA /* smallredcircle.png in Resources */,
 				7D7F4D9918F907D1003F6D12 /* redcircle.png in Resources */,
 				7D942F4318F90B8E004D30FA /* whitecircle.png in Resources */,
@@ -302,6 +316,8 @@
 				67B1C6D118F916FC00082620 /* Constants.m in Sources */,
 				67B1C6D418F9187F00082620 /* SCSound.m in Sources */,
 				7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */,
+				67B1C6E418F9389700082620 /* SCSoundTableViewCell.m in Sources */,
+				67B1C6E018F92EA800082620 /* SCSoundsViewController.m in Sources */,
 				7D0C24BB18F8E75500B83AC9 /* MainViewController.m in Sources */,
 				67B1C6C818F9076D00082620 /* SCDatabase.m in Sources */,
 				7D0C249718F8E61300B83AC9 /* main.m in Sources */,
