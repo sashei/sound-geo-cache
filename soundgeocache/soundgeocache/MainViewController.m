@@ -64,6 +64,26 @@
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"whitecircle.png"] forState:UIControlStateNormal];
         
+        
+        // audio player stuff:
+        NSDictionary *recordSettings = [NSDictionary
+                                        dictionaryWithObjectsAndKeys:
+                                        [NSNumber numberWithInt:AVAudioQualityMin],
+                                        AVEncoderAudioQualityKey,
+                                        [NSNumber numberWithInt:16],
+                                        AVEncoderBitRateKey,
+                                        [NSNumber numberWithInt: 2],
+                                        AVNumberOfChannelsKey,
+                                        [NSNumber numberWithFloat:44100.0],
+                                        AVSampleRateKey,
+                                        nil];
+        NSURL *soundFileURL;
+        NSError *error = nil;
+        _recorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+        
     }
     return self;
 }
@@ -166,20 +186,33 @@ float milesToMeters(float miles) {
     
     pView.image = [UIImage imageNamed:@"smallredcircle.png"];
     
-    // this is where I will retrieve the proper sounds from the database and package them to send to the
-    // music player.
-    
+    [_soundsToSend addObject:sound];
     
 }
 
 -(void)recordButtonPressed:(id)sender
 {
-    // todo!
+    NSData *audioData;
+    if (!_recorder.recording) {
+        if ([_recorder prepareToRecord]) {
+            [_recorder record];
+        } else {
+            NSLog(@"Problem preparing AVAudioRecorder");
+        }
+    }
+    
+    if (_recorder.recording) {
+        [_recorder stop];
+        //need to sub in proper filepath:
+        //audioData = [[NSData alloc] initWithContentsOfFile:filePath];
+    }
+    
+    //need to do something with data to store into database!!! D:
 }
 
 -(void)playButtonPressed:(id)sender
 {
-    // send packaged stuff to rupe
+    // send packaged stuff to rupe!
     
 }
 
