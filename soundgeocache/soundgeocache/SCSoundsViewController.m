@@ -30,6 +30,7 @@
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
+    [_backButton setTitle:@"\U000025C0\U0000FE0E" forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
