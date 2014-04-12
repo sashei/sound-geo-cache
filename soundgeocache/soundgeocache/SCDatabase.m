@@ -193,7 +193,14 @@
     
     NSDate *now = [[NSDate alloc] init];
     
-    NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d%@",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back, now.dateStamp ];
+    //Random numbers for good measure.
+    uint64_t n1 = arc4random_uniform(10);
+    uint64_t n2 = arc4random_uniform(10);
+    uint64_t n3 = arc4random_uniform(10);
+    if (n3 == 0) n3= 2;
+    int random_key_end = n1 + (n2*10) + (n3*100);
+    
+    NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d%@%d",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back, now.dateStamp, random_key_end ];
     
     //NSLog(@"key variable is %@", key);
     
@@ -215,9 +222,9 @@
     int new_lon_sign = [[[key substringFromIndex:4] substringToIndex:1] integerValue];
     int new_lon_front = [[[key substringFromIndex:5] substringToIndex:3] integerValue];
 
-    // The date is the last 8 digits.
-    int new_lon_back = (key_int / 100000000) % accuracy_rating;
-    int new_lat_back = ((key_int / 100000000) % accuracy_rating) % accuracy_rating;
+    // The date is the last 8 digits. 3 Random digits at the end of the key.
+    int new_lon_back = (key_int / 10^11) % accuracy_rating;
+    int new_lat_back = ((key_int / 10^11) % accuracy_rating) % accuracy_rating;
     
     double new_lat = new_lat_front + ((double)new_lat_back / accuracy_rating);
     double new_lon = new_lon_front + ((double)new_lon_back / accuracy_rating);
