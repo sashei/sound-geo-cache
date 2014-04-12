@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [_tableView setDelegate:self];
@@ -144,6 +145,7 @@
     SCSound *sound = [_sounds objectAtIndex:indexPath.row];
     NSError *error;
     [_player stop];
+    NSLog(@"URL is: %@", [sound soundURL]);
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[sound soundURL] error:&error];
     if (error)
         NSLog(@"Error in didSelectRowAtIndexPath is: %@", [error localizedDescription]);

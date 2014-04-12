@@ -237,7 +237,7 @@ float milesToMeters(float miles) {
     double passedLocLat = loc.coordinate.latitude;
     double passedLocLong = loc.coordinate.longitude;
 
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 100.0);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
 
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
