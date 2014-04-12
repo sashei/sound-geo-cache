@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
+		7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */; };
+		7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
+		7D0C249518F8E61300B83AC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C249318F8E61300B83AC9 /* InfoPlist.strings */; };
+		7D0C249718F8E61300B83AC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C249618F8E61300B83AC9 /* main.m */; };
+		7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C249A18F8E61300B83AC9 /* AppDelegate.m */; };
+		7D0C249D18F8E61300B83AC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C249C18F8E61300B83AC9 /* Images.xcassets */; };
+		7D0C24A418F8E61300B83AC9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C24A318F8E61300B83AC9 /* XCTest.framework */; };
+		7D0C24A518F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
+		7D0C24A618F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
+		7D0C24AE18F8E61300B83AC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C24AC18F8E61300B83AC9 /* InfoPlist.strings */; };
+		7D0C24B018F8E61300B83AC9 /* soundgeocacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C24AF18F8E61300B83AC9 /* soundgeocacheTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7D0C24A718F8E61300B83AC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D0C247F18F8E61300B83AC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D0C248618F8E61300B83AC9;
+			remoteInfo = soundgeocache;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7D0C248E18F8E61300B83AC9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7D0C249218F8E61300B83AC9 /* soundgeocache-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "soundgeocache-Info.plist"; sourceTree = "<group>"; };
+		7D0C249418F8E61300B83AC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D0C249618F8E61300B83AC9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7D0C249818F8E61300B83AC9 /* soundgeocache-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "soundgeocache-Prefix.pch"; sourceTree = "<group>"; };
+		7D0C249918F8E61300B83AC9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7D0C249A18F8E61300B83AC9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7D0C249C18F8E61300B83AC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7D0C24A218F8E61300B83AC9 /* soundgeocacheTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = soundgeocacheTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D0C24A318F8E61300B83AC9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		7D0C24AB18F8E61300B83AC9 /* soundgeocacheTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "soundgeocacheTests-Info.plist"; sourceTree = "<group>"; };
+		7D0C24AD18F8E61300B83AC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D0C24AF18F8E61300B83AC9 /* soundgeocacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = soundgeocacheTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7D0C248418F8E61300B83AC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */,
+				7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */,
+				7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D0C249F18F8E61300B83AC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C24A418F8E61300B83AC9 /* XCTest.framework in Frameworks */,
+				7D0C24A618F8E61300B83AC9 /* UIKit.framework in Frameworks */,
+				7D0C24A518F8E61300B83AC9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D0C247E18F8E61300B83AC9 = {
+			isa = PBXGroup;
+			children = (
+				7D0C249018F8E61300B83AC9 /* soundgeocache */,
+				7D0C24A918F8E61300B83AC9 /* soundgeocacheTests */,
+				7D0C248918F8E61300B83AC9 /* Frameworks */,
+				7D0C248818F8E61300B83AC9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7D0C248818F8E61300B83AC9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C248718F8E61300B83AC9 /* soundgeocache.app */,
+				7D0C24A218F8E61300B83AC9 /* soundgeocacheTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D0C248918F8E61300B83AC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C248A18F8E61300B83AC9 /* Foundation.framework */,
+				7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */,
+				7D0C248E18F8E61300B83AC9 /* UIKit.framework */,
+				7D0C24A318F8E61300B83AC9 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7D0C249018F8E61300B83AC9 /* soundgeocache */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C249918F8E61300B83AC9 /* AppDelegate.h */,
+				7D0C249A18F8E61300B83AC9 /* AppDelegate.m */,
+				7D0C249C18F8E61300B83AC9 /* Images.xcassets */,
+				7D0C249118F8E61300B83AC9 /* Supporting Files */,
+			);
+			path = soundgeocache;
+			sourceTree = "<group>";
+		};
+		7D0C249118F8E61300B83AC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C249218F8E61300B83AC9 /* soundgeocache-Info.plist */,
+				7D0C249318F8E61300B83AC9 /* InfoPlist.strings */,
+				7D0C249618F8E61300B83AC9 /* main.m */,
+				7D0C249818F8E61300B83AC9 /* soundgeocache-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7D0C24A918F8E61300B83AC9 /* soundgeocacheTests */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C24AF18F8E61300B83AC9 /* soundgeocacheTests.m */,
+				7D0C24AA18F8E61300B83AC9 /* Supporting Files */,
+			);
+			path = soundgeocacheTests;
+			sourceTree = "<group>";
+		};
+		7D0C24AA18F8E61300B83AC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C24AB18F8E61300B83AC9 /* soundgeocacheTests-Info.plist */,
+				7D0C24AC18F8E61300B83AC9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7D0C248618F8E61300B83AC9 /* soundgeocache */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D0C24B318F8E61300B83AC9 /* Build configuration list for PBXNativeTarget "soundgeocache" */;
+			buildPhases = (
+				7D0C248318F8E61300B83AC9 /* Sources */,
+				7D0C248418F8E61300B83AC9 /* Frameworks */,
+				7D0C248518F8E61300B83AC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = soundgeocache;
+			productName = soundgeocache;
+			productReference = 7D0C248718F8E61300B83AC9 /* soundgeocache.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7D0C24A118F8E61300B83AC9 /* soundgeocacheTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D0C24B618F8E61300B83AC9 /* Build configuration list for PBXNativeTarget "soundgeocacheTests" */;
+			buildPhases = (
+				7D0C249E18F8E61300B83AC9 /* Sources */,
+				7D0C249F18F8E61300B83AC9 /* Frameworks */,
+				7D0C24A018F8E61300B83AC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7D0C24A818F8E61300B83AC9 /* PBXTargetDependency */,
+			);
+			name = soundgeocacheTests;
+			productName = soundgeocacheTests;
+			productReference = 7D0C24A218F8E61300B83AC9 /* soundgeocacheTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D0C247F18F8E61300B83AC9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Sasha Heinen";
+				TargetAttributes = {
+					7D0C24A118F8E61300B83AC9 = {
+						TestTargetID = 7D0C248618F8E61300B83AC9;
+					};
+				};
+			};
+			buildConfigurationList = 7D0C248218F8E61300B83AC9 /* Build configuration list for PBXProject "soundgeocache" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7D0C247E18F8E61300B83AC9;
+			productRefGroup = 7D0C248818F8E61300B83AC9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D0C248618F8E61300B83AC9 /* soundgeocache */,
+				7D0C24A118F8E61300B83AC9 /* soundgeocacheTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7D0C248518F8E61300B83AC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C249518F8E61300B83AC9 /* InfoPlist.strings in Resources */,
+				7D0C249D18F8E61300B83AC9 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D0C24A018F8E61300B83AC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C24AE18F8E61300B83AC9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7D0C248318F8E61300B83AC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */,
+				7D0C249718F8E61300B83AC9 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D0C249E18F8E61300B83AC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0C24B018F8E61300B83AC9 /* soundgeocacheTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7D0C24A818F8E61300B83AC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D0C248618F8E61300B83AC9 /* soundgeocache */;
+			targetProxy = 7D0C24A718F8E61300B83AC9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7D0C249318F8E61300B83AC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D0C249418F8E61300B83AC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7D0C24AC18F8E61300B83AC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D0C24AD18F8E61300B83AC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7D0C24B118F8E61300B83AC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7D0C24B218F8E61300B83AC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7D0C24B418F8E61300B83AC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
+				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7D0C24B518F8E61300B83AC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
+				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		7D0C24B718F8E61300B83AC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/soundgeocache.app/soundgeocache";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "soundgeocacheTests/soundgeocacheTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		7D0C24B818F8E61300B83AC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/soundgeocache.app/soundgeocache";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
+				INFOPLIST_FILE = "soundgeocacheTests/soundgeocacheTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7D0C248218F8E61300B83AC9 /* Build configuration list for PBXProject "soundgeocache" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D0C24B118F8E61300B83AC9 /* Debug */,
+				7D0C24B218F8E61300B83AC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D0C24B318F8E61300B83AC9 /* Build configuration list for PBXNativeTarget "soundgeocache" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D0C24B418F8E61300B83AC9 /* Debug */,
+				7D0C24B518F8E61300B83AC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7D0C24B618F8E61300B83AC9 /* Build configuration list for PBXNativeTarget "soundgeocacheTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D0C24B718F8E61300B83AC9 /* Debug */,
+				7D0C24B818F8E61300B83AC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D0C247F18F8E61300B83AC9 /* Project object */;
+}
