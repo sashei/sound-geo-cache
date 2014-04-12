@@ -121,15 +121,16 @@
     }
     
     // cleanup our soundstosend object as we move:
+    
+    NSMutableArray *toRemove = [NSMutableArray new];
     for (SCSound *s in _soundsToSend) {
         CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
         
-        NSMutableArray *toRemove = [NSMutableArray new];
         if (![self isWithinTenFeet:loc])
             [toRemove addObject:s];
-        
-        [_soundsToSend removeObjectsInArray:toRemove];
     }
+    
+    [_soundsToSend removeObjectsInArray:toRemove];
     
     if ([_soundsToSend count] == 0)
         _playButton.hidden = true;

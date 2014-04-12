@@ -146,7 +146,11 @@
     NSError *error;
     [_player stop];
     NSLog(@"URL is: %@", [sound soundURL]);
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[sound soundURL] error:&error];
+    
+    NSError *playerError;
+    NSData *data = [NSData dataWithContentsOfURL:[sound soundURL]];
+    _player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
+    NSLog(@"The player initializes with error: %@", playerError);
     if (error)
         NSLog(@"Error in didSelectRowAtIndexPath is: %@", [error localizedDescription]);
     else {
