@@ -3,9 +3,7 @@
 
 
 // Constants for the Bucket and Object name.
-#define PICTURE_BUCKET         @"picture-bucket"
-#define PICTURE_NAME           @"NameOfThePicture"
-
+#define SOUNDS_BUCKET  @"sounds-bucket"
 
 #define CREDENTIALS_ERROR_TITLE    @"Missing Credentials"
 #define CREDENTIALS_ERROR_MESSAGE  @"AWS Credentials not configured correctly.  Please review the README file."

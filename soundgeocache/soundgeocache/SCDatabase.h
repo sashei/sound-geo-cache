@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Sasha Heinen. All rights reserved.
 //
 
+#define SOUNDS_BUCKET  @"sounds-bucket"
+
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AWSSimpleDB/AWSSimpleDB.h>
+#import "SCSound.h"
 #import <AWSS3/AWSS3.h>
-
-#define SOUNDS_BUCKET  @"sounds-bucket"
-
 
 @interface SCDatabase : NSObject <AmazonServiceRequestDelegate>
 
