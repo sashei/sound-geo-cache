@@ -55,7 +55,7 @@
         //[_recordButton setBackgroundColor:[UIColor redColor]];
         //UIImage *redButton = [UIImage imageNamed:@"redbutton.png"];
         //[_recordButton setBackgroundImage:[UIImage imageNamed:@"redbutton.png"] forState:UIControlStateNormal];
-        [_recordButton setImage:[UIImage imageNamed:@"redcircle.png"] forState:UIControlStateNormal];
+        [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png"] forState:UIControlStateNormal];
         [_recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_recordButton];
         
@@ -221,6 +221,7 @@ float milesToMeters(float miles) {
     if (!_recorder.recording) {
         if ([_recorder prepareToRecord]) {
             [_recorder record];
+            [_recordButton setImage:[UIImage imageNamed:@"Stop.png"] forState:UIControlStateNormal];
         } else {
             NSLog(@"Problem preparing AVAudioRecorder");
         }
