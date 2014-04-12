@@ -123,10 +123,6 @@
         if (![self isWithinTenFeet:loc])
             [_soundsToSend removeObject:s];
     }
-    if ([_soundsToSend count] > 0)
-        _playButton.hidden = false;
-    else
-        _playButton.hidden = true;
 
     [_database requestSoundsNear:center];
 }
@@ -177,6 +173,11 @@
             [self closeEnough:p];
         }
     }
+    
+    if ([_soundsToSend count] > 0)
+        _playButton.hidden = false;
+    else
+        _playButton.hidden = true;
     
     // useful to look at for debugging purposes!
     NSArray *annotations = _map.annotations;
@@ -242,13 +243,18 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *)loc
 {
+    double currentLocLat = _locationManager.location.coordinate.latitude;
+    double currentLocLong = _locationManager.location.coordinate.longitude;
+    double passedLocLat = loc.coordinate.latitude;
+    double passedLocLong = loc.coordinate.longitude;
+
     return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
 
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
 {
     for (id note in annotations) {
-        if ([note isKindOfClass:[SCSound class]]) {
+        if ([note isMemberOfClass:[SCSound class]]) {
             SCSound *innerSound = note;
             if ([innerSound.soundURL isEqual:sound.soundURL])
                 return true;
