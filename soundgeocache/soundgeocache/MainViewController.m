@@ -123,8 +123,12 @@
     // cleanup our soundstosend object as we move:
     for (SCSound *s in _soundsToSend) {
         CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
+        
+        NSMutableArray *toRemove = [NSMutableArray new];
         if (![self isWithinTenFeet:loc])
-            [_soundsToSend removeObject:s];
+            [toRemove addObject:s];
+        
+        [_soundsToSend removeObjectsInArray:toRemove];
     }
     
     if ([_soundsToSend count] == 0)
@@ -232,11 +236,6 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *)loc
 {
-    double currentLocLat = _locationManager.location.coordinate.latitude;
-    double currentLocLong = _locationManager.location.coordinate.longitude;
-    double passedLocLat = loc.coordinate.latitude;
-    double passedLocLong = loc.coordinate.longitude;
-
     return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
 
