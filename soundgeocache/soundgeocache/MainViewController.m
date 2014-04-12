@@ -14,13 +14,33 @@
 
 @implementation MainViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         // Custom initialization
+        
+        // location manager initialization
+        _locationManager = [CLLocationManager new];
+        [_locationManager setDelegate:self];
+        // make location updates very granular
+        [_locationManager startUpdatingLocation];
+        
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake(34.098487, -117.709332);
+        
+        //
+        _map = [[MKMapView alloc] initWithFrame:self.view.bounds];
+        [_map setDelegate:self];
+        [_map setRegion:(MKCoordinateRegionMakeWithDistance(center, milesToMeters(1.0f), milesToMeters(1.0f)))];
+        
+        [self.view addSubview:_map];
+        
     }
     return self;
+}
+
+float milesToMeters(float miles) {
+    return 1609.344f * miles;
 }
 
 - (void)viewDidLoad

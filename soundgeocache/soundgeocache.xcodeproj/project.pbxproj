@@ -19,6 +19,8 @@
 		7D0C24A618F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
 		7D0C24AE18F8E61300B83AC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C24AC18F8E61300B83AC9 /* InfoPlist.strings */; };
 		7D0C24B018F8E61300B83AC9 /* soundgeocacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C24AF18F8E61300B83AC9 /* soundgeocacheTests.m */; };
+		7D0C24BB18F8E75500B83AC9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C24BA18F8E75500B83AC9 /* MainViewController.m */; };
+		7D0C24BD18F8E8AE00B83AC9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C24BC18F8E8AE00B83AC9 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		7D0C24AB18F8E61300B83AC9 /* soundgeocacheTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "soundgeocacheTests-Info.plist"; sourceTree = "<group>"; };
 		7D0C24AD18F8E61300B83AC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D0C24AF18F8E61300B83AC9 /* soundgeocacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = soundgeocacheTests.m; sourceTree = "<group>"; };
+		7D0C24B918F8E75500B83AC9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		7D0C24BA18F8E75500B83AC9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		7D0C24BC18F8E8AE00B83AC9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D0C24BD18F8E8AE00B83AC9 /* CoreLocation.framework in Frameworks */,
 				7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */,
 				7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */,
 				7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */,
@@ -96,6 +102,7 @@
 		7D0C248918F8E61300B83AC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D0C24BC18F8E8AE00B83AC9 /* CoreLocation.framework */,
 				7D0C248A18F8E61300B83AC9 /* Foundation.framework */,
 				7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */,
 				7D0C248E18F8E61300B83AC9 /* UIKit.framework */,
@@ -109,6 +116,8 @@
 			children = (
 				7D0C249918F8E61300B83AC9 /* AppDelegate.h */,
 				7D0C249A18F8E61300B83AC9 /* AppDelegate.m */,
+				7D0C24B918F8E75500B83AC9 /* MainViewController.h */,
+				7D0C24BA18F8E75500B83AC9 /* MainViewController.m */,
 				7D0C249C18F8E61300B83AC9 /* Images.xcassets */,
 				7D0C249118F8E61300B83AC9 /* Supporting Files */,
 			);
@@ -240,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */,
+				7D0C24BB18F8E75500B83AC9 /* MainViewController.m in Sources */,
 				7D0C249718F8E61300B83AC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +308,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -336,7 +347,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -357,6 +369,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
@@ -370,6 +384,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sasha Heinen (WN7F49WTC5)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
@@ -437,6 +452,7 @@
 				7D0C24B518F8E61300B83AC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D0C24B618F8E61300B83AC9 /* Build configuration list for PBXNativeTarget "soundgeocacheTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +461,7 @@
 				7D0C24B818F8E61300B83AC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
