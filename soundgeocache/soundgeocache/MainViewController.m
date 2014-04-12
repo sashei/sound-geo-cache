@@ -170,11 +170,12 @@
     // the sounds array will be coming from john's database
     
     _closeSounds = sounds;
+    NSArray *annotations = sounds;
     
     for (SCSound *p in _closeSounds) {
         // check to make sure this particular sound isn't already in our map
-        if (![self containsURL:_map.annotations fromSound:p])
-            [_map addAnnotation:p];
+//        if (![self containsURL:_map.annotations fromSound:p])
+//            [_map addAnnotation:p];
         
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
         
@@ -184,9 +185,11 @@
         }
     }
     
+    [_map removeAnnotations:annotations];
+    [_map addAnnotations:annotations];
+    
     // useful to look at for debugging purposes!
     //NSArray *annotations = _map.annotations;
-    
 }
 
 -(void)closeEnough:(SCSound *)sound
@@ -237,7 +240,7 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *)loc
 {
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 100.0);
 }
 
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound

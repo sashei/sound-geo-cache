@@ -7,7 +7,6 @@
 //
 
 #import "SCSoundsViewController.h"
-#import "SCSoundTableViewCell.h"
 
 @interface SCSoundsViewController ()
 
