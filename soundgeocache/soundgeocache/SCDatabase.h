@@ -14,11 +14,18 @@
 #import "SCSound.h"
 #import <AWSS3/AWSS3.h>
 
+@protocol SCDatabaseListener <NSObject>
+
+- (void) receiveSounds:(NSMutableArray*) sounds;
+
+@end
+
 @interface SCDatabase : NSObject <AmazonServiceRequestDelegate>
 
 @property AmazonS3Client *s3;
+@property NSObject <SCDatabaseListener> *delegate;
 
-- (NSArray*) getSoundsInRectWithCorners:(CLLocationCoordinate2D) topLeft and: (CLLocationCoordinate2D) bottomRight;
+- (void) requestSoundsInRectWithCorners:(CLLocationCoordinate2D) topLeft and: (CLLocationCoordinate2D) bottomRight;
 
 - (void)addSound:(NSData *) soundData withLocation:(CLLocationCoordinate2D)location;
 
