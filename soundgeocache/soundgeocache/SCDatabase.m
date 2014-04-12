@@ -157,20 +157,61 @@
 // we use our gps coordinates for keys
 - (int) makeKeyForLocation:(CLLocationCoordinate2D)location
 {
-    int key = 0;
     
-    // we have the lat and lon
-    int lat = location.latitude;
-    int lon = location.longitude;
-    NSLog(@"makeKeyForLocation : lat is %d", lat);
+    // CAUTION : this should be at the top of the file.
+    int accuracy_rating = 10000;
     
-    // we format the lat and lon
-    NSString *latString = [NSString stringWithFormat:@"%3d%.4d", lat, lat];
-    NSString *lonString = [NSString stringWithFormat:@"%3d%.4d", lon, lon];
-    NSLog(@"makeKeyForLocation : latString is %@", latString);
+    int lat_sign = 0;
+    if (location.latitude > 0) lat_sign=1;
+    int lon_sign = 0;
+    if (location.longitude > 0) lon_sign=1;
+    
+    int lat_front = abs((int)location.latitude);
+    int lat_back = abs((int)((location.latitude - lat_front) * accuracy_rating));
+    int lon_front = abs((int)location.longitude);
+    int lon_back = abs((int)((location.longitude - lon_front) * accuracy_rating));
+    
+    NSString *lat_front_string = [NSString stringWithFormat:@"%03d", lat_front];
+    NSString *lon_front_string = [NSString stringWithFormat:@"%03d", lon_front];
+    
+    NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back ];
+    
+    NSLog(@"key variable is %@", key);
+    
+    return [key integerValue];
     
     
-    return key;
+}
+
+-(CLLocationCoordinate2D) getLocationFromKey:(int)key_int
+{
+    
+    // CAUTION : this should be at the top of the file.
+    int accuracy_rating = 10000;
+    
+    NSString *key = [[NSString alloc] initWithFormat: @"%d",key_int];
+    // get lat and lon from key
+    
+    
+    int new_lat_sign = [[[key substringFromIndex:0] substringToIndex:1] integerValue];
+    int new_lat_front = [[[key substringFromIndex:1] substringToIndex:3] integerValue];
+    int new_lon_sign = [[[key substringFromIndex:4] substringToIndex:1] integerValue];
+    int new_lon_front = [[[key substringFromIndex:5] substringToIndex:3] integerValue];
+    
+    int new_lon_back = key_int % accuracy_rating;
+    int new_lat_back = (key_int / accuracy_rating) % accuracy_rating;
+    
+    double new_lat = new_lat_front + ((double)new_lat_back / accuracy_rating);
+    double new_lon = new_lon_front + ((double)new_lon_back / accuracy_rating);
+    
+    if (new_lat_sign == 0) new_lat = new_lat * (-1);
+    if (new_lon_sign == 0) new_lon = new_lon * (-1);
+    
+    NSLog(@"New latitude is %f", new_lat);
+    NSLog(@"New longitude is %f", new_lon);
+    
+    CLLocationCoordinate2D location =CLLocationCoordinate2DMake(new_lat, new_lon);
+    return location;
 }
 
 - (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title

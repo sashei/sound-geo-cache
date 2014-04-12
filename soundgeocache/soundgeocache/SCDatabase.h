@@ -30,4 +30,6 @@
 - (void)addSound:(NSData *) soundData withLocation:(CLLocationCoordinate2D)location;
 
 
+- (int) makeKeyForLocation:(CLLocationCoordinate2D)location;
+-(CLLocationCoordinate2D) getLocationFromKey:(int)key_int;
 @end
