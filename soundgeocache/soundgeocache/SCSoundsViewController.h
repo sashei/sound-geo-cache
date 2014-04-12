@@ -10,11 +10,12 @@
 #import "SCSound.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface SCSoundsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SCSoundsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate>
 
 @property IBOutlet UITableView *tableView;
 @property IBOutlet UIButton *backButton;
 @property NSMutableArray *sounds;
+@property AVAudioPlayer *player;
 
 - (void) loadSounds:(NSMutableArray*) sounds;
 

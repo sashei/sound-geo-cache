@@ -7,6 +7,7 @@
 //
 
 #import "SCSoundsViewController.h"
+#import "SCSoundTableViewCell.h"
 
 @interface SCSoundsViewController ()
 
@@ -27,9 +28,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [_tableView setDelegate:self];
+    [_tableView setDataSource:self];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [_player stop];
+    
     NSError *trash;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&trash];
     NSLog(@"The error is: %@", trash);
@@ -55,6 +62,10 @@
     [_tableView reloadData];
 }
 
+- (void) goBack {
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -74,23 +85,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    
-    PBPainting *temp = [_paintings objectAtIndex:indexPath.row][1];
-    [cell.textLabel setTextAlignment:NSTextAlignmentRight];
-    if (temp.solved) {
-        [[cell imageView] setImage:temp.posterizedImage];
-        [cell.textLabel setText:@"Replay"];
-    }
-    else {
-        [[cell imageView] setImage:[UIImage imageNamed:@"qmark.png"]];
-        [cell.textLabel setText:@"Play"];
-    }
-    
-    [[cell imageView].layer setBorderWidth:6.0];
-    [[cell imageView].layer setBorderColor:[[UIColor whiteColor] CGColor]];
-    //[[cell imageView].layer setCornerRadius:10.0];
-    [[cell imageView] setClipsToBounds:YES];
-    
+    [cell.imageView setImage:[UIImage imageNamed:@"Play.png"]];
     return cell;
 }
 
@@ -104,23 +99,23 @@
  */
 
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        if (![_database executeUpdate:@"DELETE FROM paintings WHERE rowid=?", _paintings[indexPath.row][0]])
-            NSLog(@"Failure to delete at rowid %ld", (long)indexPath.row);
-        [_paintings removeObjectAtIndex:indexPath.row];
-        
-        NSLog(@"paintings has size: %lu", (unsigned long)[_paintings count]);
-        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
+//// Override to support editing the table view.
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        // Delete the row from the data source
+//        if (![_database executeUpdate:@"DELETE FROM paintings WHERE rowid=?", _paintings[indexPath.row][0]])
+//            NSLog(@"Failure to delete at rowid %ld", (long)indexPath.row);
+//        [_paintings removeObjectAtIndex:indexPath.row];
+//        
+//        NSLog(@"paintings has size: %lu", (unsigned long)[_paintings count]);
+//        
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    }
+//    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//    }
+//}
 
 
 /*
@@ -143,12 +138,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // FIXME PAUSE BUTTON STAYS ALWAYS SHIIIIITTTT
+    
     NSLog(@"Trying to get the painting at row %ld", (long)indexPath.row);
-    _lastSelectedPaintingIndex = indexPath.row;
-    _colorVC = [[PBColorViewController alloc] initWithPainting:[_paintings objectAtIndex:indexPath.row][1]];
-    _colorVC.delegate = self;
-    [self presentViewController:_colorVC animated:NO completion:nil];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SCSound *sound = [_sounds objectAtIndex:indexPath.row];
+    NSError *error;
+    [_player stop];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:[sound soundURL]] error:&error];
+    if (error)
+        NSLog(@"Error in didSelectRowAtIndexPath is: %@", [error localizedDescription]);
+    else {
+        _player.delegate = self;
+        [_player setVolume:1.0];
+        [_player prepareToPlay];
+        [_player play];
+    }
+    
+    [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Pause.png"]];
 }
 
 

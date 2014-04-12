@@ -16,6 +16,10 @@
 		67B1C6E018F92EA800082620 /* SCSoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6DE18F92EA800082620 /* SCSoundsViewController.m */; };
 		67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */; };
 		67B1C6E418F9389700082620 /* SCSoundTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6E318F9389700082620 /* SCSoundTableViewCell.m */; };
+		67B1C6F018F93EA500082620 /* MIC-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6EC18F93EA500082620 /* MIC-3.png */; };
+		67B1C6F118F93EA500082620 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6ED18F93EA500082620 /* Pause.png */; };
+		67B1C6F218F93EA500082620 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6EE18F93EA500082620 /* Play.png */; };
+		67B1C6F318F93EA500082620 /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6EF18F93EA500082620 /* Stop.png */; };
 		7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
 		7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */; };
 		7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
@@ -61,6 +65,10 @@
 		67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCSoundsViewController.xib; sourceTree = "<group>"; };
 		67B1C6E218F9389700082620 /* SCSoundTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSoundTableViewCell.h; sourceTree = "<group>"; };
 		67B1C6E318F9389700082620 /* SCSoundTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSoundTableViewCell.m; sourceTree = "<group>"; };
+		67B1C6EC18F93EA500082620 /* MIC-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MIC-3.png"; sourceTree = "<group>"; };
+		67B1C6ED18F93EA500082620 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
+		67B1C6EE18F93EA500082620 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
+		67B1C6EF18F93EA500082620 /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
 		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -207,6 +215,10 @@
 		7D7F4D9A18F907E0003F6D12 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				67B1C6EC18F93EA500082620 /* MIC-3.png */,
+				67B1C6ED18F93EA500082620 /* Pause.png */,
+				67B1C6EE18F93EA500082620 /* Play.png */,
+				67B1C6EF18F93EA500082620 /* Stop.png */,
 				7D942F4C18F91AA5004D30FA /* smallredcircle.png */,
 				7D942F4218F90B8E004D30FA /* whitecircle.png */,
 				7D7F4D9818F907D1003F6D12 /* redcircle.png */,
@@ -291,8 +303,12 @@
 			files = (
 				67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */,
 				7D942F4D18F91AA5004D30FA /* smallredcircle.png in Resources */,
+				67B1C6F118F93EA500082620 /* Pause.png in Resources */,
+				67B1C6F318F93EA500082620 /* Stop.png in Resources */,
 				7D7F4D9918F907D1003F6D12 /* redcircle.png in Resources */,
 				7D942F4318F90B8E004D30FA /* whitecircle.png in Resources */,
+				67B1C6F018F93EA500082620 /* MIC-3.png in Resources */,
+				67B1C6F218F93EA500082620 /* Play.png in Resources */,
 				7D0C249518F8E61300B83AC9 /* InfoPlist.strings in Resources */,
 				7D0C249D18F8E61300B83AC9 /* Images.xcassets in Resources */,
 			);
