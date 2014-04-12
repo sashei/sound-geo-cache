@@ -121,6 +121,13 @@ float milesToMeters(float miles) {
         _shouldUpdateLocation = false;
     }
     
+    // cleanup our soundstosend object as we move:
+    for (SCSound *s in _soundsToSend) {
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
+        if (![self isWithinTenFeet:loc])
+            [_soundsToSend removeObject:s];
+    }
+    
     // send this to john's database manager, woohoo!
     // NSArray *bounds = [self getBounds];
     
@@ -150,10 +157,10 @@ float milesToMeters(float miles) {
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    if ([annotation isMemberOfClass:[SCSound class]])
+    if ([annotation isKindOfClass:[SCSound class]])
     {
         SCSound *p = annotation;
-        NSString *identifier = p.soundURL;
+        NSString *identifier = p.soundURL.fragment;
         MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         
         if (annotationView) {
@@ -182,7 +189,10 @@ float milesToMeters(float miles) {
     
     // alter the annotations
     for (SCSound *p in _closeSounds) {
-        [_map addAnnotation:p];
+        // check to make sure this particular sound isn't already in our map
+        if (![self containsURL:_map.annotations fromSound:p])
+            [_map addAnnotation:p];
+        
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
         
         // check close-ness of each new thing around us
@@ -194,25 +204,28 @@ float milesToMeters(float miles) {
     
     if (!hasSoundInRange)
         _playButton.hidden = true;
+    
+    // useful to look at for debugging purposes!
+    //NSArray *annotations = _map.annotations;
+    
 }
 
 -(void)closeEnough:(SCSound *)sound
 {
     _playButton.hidden = false;
     
-    MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL];
+    MKAnnotationView *pView = [_map dequeueReusableAnnotationViewWithIdentifier:sound.soundURL.fragment];
     
     if (pView) {
         pView.annotation = sound;
     } else {
         pView = [[MKAnnotationView alloc] initWithAnnotation:sound
-                                                reuseIdentifier:sound.soundURL];
+                                                reuseIdentifier:sound.soundURL.fragment];
     }
     
-    pView.image = [UIImage imageNamed:@"smallredcircle.png"];
+    pView.image = [UIImage imageNamed:@"smallwhitecircle.png"];
     
     [_soundsToSend addObject:sound];
-    
 }
 
 -(void)recordButtonPressed:(id)sender
@@ -232,8 +245,19 @@ float milesToMeters(float miles) {
         [_database requestSoundsNear:_locationManager.location.coordinate];
     }
     
-    //need to do something with data to store into database!!! D:
     [_database addSound:audioData withLocation:_locationManager.location.coordinate];
+}
+
+-(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
+{
+    for (id note in annotations) {
+        if ([note isKindOfClass:[SCSound class]]) {
+            SCSound *sound = note;
+            if ([sound.soundURL isEqual:sound.soundURL])
+                return true;
+        }
+    }
+    return false;
 }
 
 -(void)playButtonPressed:(id)sender

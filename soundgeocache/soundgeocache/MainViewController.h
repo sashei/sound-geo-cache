@@ -38,11 +38,13 @@
 -(NSArray *)getBounds;
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;
 
+
 -(void)receiveSounds:(NSMutableArray *)sounds;
 -(void)closeEnough:(SCSound *)sound;
+-(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound;
 -(bool)isWithinTenFeet:(CLLocation *)location;
 
-//todo:
+
 -(void)recordButtonPressed:(id)sender;
 -(void)playButtonPressed:(id)sender;
 
