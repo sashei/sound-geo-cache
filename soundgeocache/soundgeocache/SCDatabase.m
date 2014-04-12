@@ -13,6 +13,8 @@
 @implementation SCDatabase
 
 - (id) init {
+    self = [super init];
+    
     if (self) {
         if(self.s3 == nil)
         {
@@ -40,6 +42,7 @@
             }
         }
     }
+    
     return self;
 }
 

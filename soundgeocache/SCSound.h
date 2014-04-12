@@ -14,4 +14,6 @@
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property NSString *soundURL;
 
+- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSString*) url;
+
 @end
