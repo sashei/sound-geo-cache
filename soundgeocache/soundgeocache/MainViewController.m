@@ -98,8 +98,6 @@
         // set up table view controller for sound detail views
         _soundsView = [SCSoundsViewController new];
         
-        [self receiveSounds:nil];
-        
     }
     return self;
 }
@@ -124,6 +122,8 @@ float milesToMeters(float miles) {
     // we will get something back, so fun-ness.
     // this is what I will get back from john:
 //    _closeSounds;
+    
+    [self receiveSounds:nil];
 
     
     
@@ -199,29 +199,6 @@ float milesToMeters(float miles) {
 {
     // the sounds array will be coming from john's database
     
-    // some sample sound locations for testing location stuff.
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(34.099723, -117.709385);
-    CLLocationCoordinate2D toplft = CLLocationCoordinate2DMake(34.105452, -117.712273);
-    CLLocationCoordinate2D toprt = CLLocationCoordinate2DMake(34.104688, -117.704419);
-    CLLocationCoordinate2D botrt = CLLocationCoordinate2DMake(34.097883, -117.705878);
-    CLLocationCoordinate2D botlft = CLLocationCoordinate2DMake(34.097616, -117.712980);
-    
-    SCSound *sound1 = [SCSound new];
-    sound1.coordinate = toplft;
-    sound1.soundURL = @"sound1";
-    SCSound *sound2 = [SCSound new];
-    sound2.coordinate = toprt;
-    sound2.soundURL = @"sound2";
-    SCSound *sound3 = [SCSound new];
-    sound3.coordinate = botrt;
-    sound3.soundURL = @"sound3";
-    SCSound *sound4 = [SCSound new];
-    sound4.coordinate = botlft;
-    sound4.soundURL = @"sound4";
-    
-    
-    _closeSounds = [[NSMutableArray alloc] initWithObjects:sound1,sound2,sound3,sound4, nil];
-    
     bool hasSoundInRange = false;
     
     // alter the annotations
@@ -288,11 +265,6 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *) loc
 {
-    double currentLat = _locationManager.location.coordinate.latitude;
-    double currentLong = _locationManager.location.coordinate.longitude;
-    double passedLat = loc.coordinate.latitude;
-    double passedLong = loc.coordinate.longitude;
-    //NSLog([NSString stringWithFormat:@"current lat: %f\n current long: %f\n"]);
     return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 10.0);
 }
 
