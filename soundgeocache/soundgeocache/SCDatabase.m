@@ -176,7 +176,9 @@
     NSString *lat_front_string = [NSString stringWithFormat:@"%03d", lat_front];
     NSString *lon_front_string = [NSString stringWithFormat:@"%03d", lon_front];
     
-    NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back ];
+    NSDate *now = [[NSDate alloc] init];
+    
+    NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d%@",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back, now.dateStamp ];
     
     //NSLog(@"key variable is %@", key);
     
@@ -197,9 +199,10 @@
     int new_lat_front = [[[key substringFromIndex:1] substringToIndex:3] integerValue];
     int new_lon_sign = [[[key substringFromIndex:4] substringToIndex:1] integerValue];
     int new_lon_front = [[[key substringFromIndex:5] substringToIndex:3] integerValue];
-    
-    int new_lon_back = key_int % accuracy_rating;
-    int new_lat_back = (key_int / accuracy_rating) % accuracy_rating;
+
+    // The date is the last 8 digits.
+    int new_lon_back = (key_int / 100000000) % accuracy_rating;
+    int new_lat_back = ((key_int / 100000000) % accuracy_rating) % accuracy_rating;
     
     double new_lat = new_lat_front + ((double)new_lat_back / accuracy_rating);
     double new_lon = new_lon_front + ((double)new_lon_back / accuracy_rating);

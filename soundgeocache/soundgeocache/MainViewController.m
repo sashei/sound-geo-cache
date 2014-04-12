@@ -20,6 +20,8 @@
     if (self) {
         // Custom initialization
         
+       
+        
         _database = [[SCDatabase alloc] init];
         _database.delegate = self;
         
