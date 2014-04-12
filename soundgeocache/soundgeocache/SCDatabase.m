@@ -48,11 +48,19 @@
 
 - (void) requestSoundsNear:(CLLocationCoordinate2D) location {
     
+    
     // The prefix for our search.
     NSString *prefix = [[self getKeyFromLocation:location] substringToIndex:8];
     
+    NSLog(@"Sounds requested with prefix: %@", prefix);
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
+        
+//        S3ListObjectsRequest * listObjectsRequest = [[[S3ListObjectsRequest alloc] init] autorelease];
+//        listObjectsRequest.bucket = @"same bucket as above";
+//        listObjectsRequest.prefix = self.prevailStore.prov;
+//        for (S3ObjectSummary * summary in [s3 listObjects:listObjectsRequest].listObjectsResult.objectSummaries)
         
         // THIS IS GOING TO INVOLVE some kind of call to the s3 database, to get the keys
         // for a given prefix. best to do it in here.
@@ -60,11 +68,14 @@
         
         S3ListObjectsRequest *listobjsr = [[S3ListObjectsRequest alloc] init];
         listobjsr.prefix = prefix;
-        //listobjsr.marker = nil; // help! not gonna set it
-        listobjsr.maxKeys = 1000; // this is literally random
+        listobjsr.bucket = SOUNDS_BUCKET;
+        //listobjsr.marker = prefix; // help! not gonna set it
+        //listobjsr.maxKeys = 1000; // this is literally random
         //listobjsr.delimiter  // not setting this one for now.
         
         S3ListObjectsResponse *response = [_s3 listObjects:listobjsr];
+        
+        NSLog(@"Response with error: %@, count: %lu", [response.error localizedDescription], (unsigned long)[response.listObjectsResult.objectSummaries count]);
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self getSoundsForKeys:response.listObjectsResult.objectSummaries];
@@ -73,6 +84,8 @@
 }
 
 - (void) getSoundsForKeys:(NSMutableArray*) keys {
+    
+    NSLog(@"Getting sounds for keys");
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
@@ -85,10 +98,12 @@
         
         override.contentType = @"audio/mpeg";
         
-        for (NSString* key in keys) {
+        for (S3ObjectSummary* objSum in keys) {
+            NSLog(@"Key from getSounds for keys is: %@", objSum.key);
+            
             // Request a pre-signed URL to picture that has been uplaoded.
             S3GetPreSignedURLRequest *gpsur = [[S3GetPreSignedURLRequest alloc] init];
-            gpsur.key                     = key;
+            gpsur.key                     = objSum.key;
             gpsur.bucket                  = SOUNDS_BUCKET;
             gpsur.expires                 = [NSDate dateWithTimeIntervalSinceNow:(NSTimeInterval) 3600]; // Added an hour's worth of seconds to the current time.
             gpsur.responseHeaderOverrides = override;
@@ -111,7 +126,7 @@
             else
             {
                 //  AND THEN INSTANTIATE THIS SOUND OBJECT
-                SCSound *temp = [[SCSound alloc] initWithLocation:[self getLocationFromKey:key] andSoundURL:url];
+                SCSound *temp = [[SCSound alloc] initWithLocation:[self getLocationFromKey:objSum.key] andSoundURL:url];
                 [sounds addObject:temp];
             }
         }
@@ -210,8 +225,8 @@
     if (new_lat_sign == 0) new_lat = new_lat * (-1);
     if (new_lon_sign == 0) new_lon = new_lon * (-1);
     
-    NSLog(@"New latitude is %f", new_lat);
-    NSLog(@"New longitude is %f", new_lon);
+//    NSLog(@"New latitude is %f", new_lat);
+//    NSLog(@"New longitude is %f", new_lon);
     
     CLLocationCoordinate2D location =CLLocationCoordinate2DMake(new_lat, new_lon);
     return location;
