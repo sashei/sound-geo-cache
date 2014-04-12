@@ -178,7 +178,7 @@
     
     NSString *key = [[NSString alloc] initWithFormat:@"%d%@%d%@%d%d",lat_sign, lat_front_string, lon_sign, lon_front_string, lat_back, lon_back ];
     
-    NSLog(@"key variable is %@", key);
+    //NSLog(@"key variable is %@", key);
     
     return key;
 }
