@@ -10,27 +10,12 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-
 @interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
-// view stuff
 @property MKMapView *map;
-@property UIButton *recordButton;
-@property UIButton *playButton;
-
-// location stuff
 @property CLLocationManager *locationManager;
-@property BOOL shouldUpdateLocation;
 
-// data stuff
-@property NSMutableArray *closeSounds;
-@property NSMutableArray *soundsToSend;
-
--(NSArray *)getBounds;
--(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation;
-
-//todo:
--(void)recordButtonPressed:(id)sender;
--(void)playButtonPressed:(id)sender;
+@property UIButton *record;
+@property UIButton *play;
 
 @end
