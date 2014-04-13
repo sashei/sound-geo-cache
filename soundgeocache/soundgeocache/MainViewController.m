@@ -72,7 +72,7 @@
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
         [_playButton setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
         [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _playButton.alpha = 0.0f;
+        //_playButton.alpha = 0.0f;
         [self.view addSubview:_playButton];
         
         
@@ -108,6 +108,10 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+}
+
 #pragma mark - location & map delegate methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -132,8 +136,8 @@
     
     [_soundsToSend removeObjectsInArray:toRemove];
     
-    if ([_soundsToSend count] == 0)
-        _playButton.alpha = 0.0f;
+//    if ([_soundsToSend count] == 0)
+//        _playButton.alpha = 0.0f;
 
     [_database requestSoundsNear:center];
 }
@@ -173,11 +177,12 @@
 
     [_soundsToSend removeAllObjects];
     
-    [self removeAllPinsButUserLocation];
+    //[self removeAllPinsButUserLocation];
     
     for (SCSound *p in _closeSounds) {
         // check to make sure this particular sound isn't already in our map
-        [_map addAnnotation:p];
+        if (![self containsURL:_map.annotations fromSound:p])
+            [_map addAnnotation:p];
         
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
         
@@ -196,9 +201,9 @@
 
 -(void)closeEnough:(SCSound *)sound
 {
-    [UIView beginAnimations:@"Fade" context:NULL];
-    _playButton.alpha = 1.0f;
-    [UIView commitAnimations];
+//    [UIView beginAnimations:@"Fade" context:NULL];
+//    _playButton.alpha = 1.0f;
+//    [UIView commitAnimations];
     
     [_soundsToSend addObject:sound];
     
@@ -221,6 +226,7 @@
         [_recorder stop];
         [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png"] forState:UIControlStateNormal];
         audioData = [[NSData alloc] initWithContentsOfFile:_tempAudioPath];
+        //[[NSFileManager defaultManager] removeItemAtPath:_tempAudioPath error:nil];
         
         //need to do something with data to store into database!!! D:
         [_database addSound:audioData withLocation:_locationManager.location.coordinate];
@@ -244,20 +250,35 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *)loc
 {
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 100.0);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 300.0);
 }
 
 -(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
 {
-    for (id note in annotations) {
-        if ([note isMemberOfClass:[SCSound class]]) {
-            SCSound *innerSound = note;
-            
-            if ([innerSound.soundURL.absoluteString isEqual:sound.soundURL.absoluteString])
-                return true;
-        }
+//    for (id note in annotations) {
+//        if ([note isMemberOfClass:[SCSound class]]) {
+//            SCSound *innerSound = note;
+//            
+//            if ([innerSound.soundURL.absoluteString isEqual:sound.soundURL.absoluteString])
+//                return true;
+//        }
+//    }
+//    return false;
+
+    NSUInteger index = -1;
+    index = [_map.annotations indexOfObjectPassingTest:
+                        ^BOOL(id obj, NSUInteger idx, BOOL *stop){
+                            return [self clCoordinatesEqual:((SCSound*)obj).coordinate and: sound.coordinate];
+                        }];
+    if (index == -1)
+    {
+        return true;
     }
     return false;
+}
+
+- (BOOL) clCoordinatesEqual:(CLLocationCoordinate2D)c1 and: (CLLocationCoordinate2D)c2 {
+    return (c1.latitude == c2.latitude) && (c1.longitude == c2.longitude);
 }
 
 - (void)removeAllPinsButUserLocation

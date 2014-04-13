@@ -1,5 +1,5 @@
-#define ACCESS_KEY_ID          @"AKIAJYTJ3GDUD2G4XYCQ"
-#define SECRET_KEY             @"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"
+#define ACCESS_KEY_ID          @"nooo"
+#define SECRET_KEY             @"whaaat"
 
 
 // Constants for the Bucket and Object name.
