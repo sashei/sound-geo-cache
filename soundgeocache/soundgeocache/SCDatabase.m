@@ -17,31 +17,33 @@
     self = [super init];
     
     if (self) {
-        if(self.s3 == nil)
-        {
-            // Initial the S3 Client.
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // This sample App is for demonstration purposes only.
-            // It is not secure to embed your credentials into source code.
-            // DO NOT EMBED YOUR CREDENTIALS IN PRODUCTION APPS.
-            // We offer two solutions for getting credentials to your mobile App.
-            // Please read the following article to learn about Token Vending Machine:
-            // * http://aws.amazon.com/articles/Mobile/4611615499399490
-            // Or consider using web identity federation:
-            // * http://aws.amazon.com/articles/Mobile/4617974389850313
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            self.s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
-            self.s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
-            
-//            // Create the sounds bucket
-//            S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:SOUNDS_BUCKET andRegion:[S3Region USWest2]];
-//            S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
-//            if(createBucketResponse.error != nil)
-//            {
-//                NSLog(@"Error: %@", createBucketResponse.error);
-//            }
-        }
+//        if(self.s3 == nil)
+//        {
+//            // Initial the S3 Client.
+//            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//            // This sample App is for demonstration purposes only.
+//            // It is not secure to embed your credentials into source code.
+//            // DO NOT EMBED YOUR CREDENTIALS IN PRODUCTION APPS.
+//            // We offer two solutions for getting credentials to your mobile App.
+//            // Please read the following article to learn about Token Vending Machine:
+//            // * http://aws.amazon.com/articles/Mobile/4611615499399490
+//            // Or consider using web identity federation:
+//            // * http://aws.amazon.com/articles/Mobile/4617974389850313
+//            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//            
+//            self.s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
+//            self.s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
+//            
+////            // Create the sounds bucket
+////            S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:SOUNDS_BUCKET andRegion:[S3Region USWest2]];
+////            S3CreateBucketResponse *createBucketResponse = [self.s3 createBucket:createBucketRequest];
+////            if(createBucketResponse.error != nil)
+////            {
+////                NSLog(@"Error: %@", createBucketResponse.error);
+////            }
+//        }
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"yyyy.MM.dd,hh:mm:ss,a"];
     }
     
     return self;
@@ -51,17 +53,13 @@
     
     
     // The prefix for our search.
-    NSString *prefix = [[self getKeyFromLocation:location] substringToIndex:8];
+    NSString *prefix = [self getKeyPrefixFromLocation:location];
     
     NSLog(@"Sounds requested with prefix: %@", prefix);
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         
-//        S3ListObjectsRequest * listObjectsRequest = [[[S3ListObjectsRequest alloc] init] autorelease];
-//        listObjectsRequest.bucket = @"same bucket as above";
-//        listObjectsRequest.prefix = self.prevailStore.prov;
-//        for (S3ObjectSummary * summary in [s3 listObjects:listObjectsRequest].listObjectsResult.objectSummaries)
         
         // THIS IS GOING TO INVOLVE some kind of call to the s3 database, to get the keys
         // for a given prefix. best to do it in here.
@@ -74,7 +72,7 @@
         //listobjsr.maxKeys = 1000; // this is literally random
         //listobjsr.delimiter  // not setting this one for now.
         
-        S3ListObjectsResponse *response = [_s3 listObjects:listobjsr];
+        S3ListObjectsResponse *response = [[AmazonClientManager s3] listObjects:listobjsr];
         
         //NSLog(@"Response with error: %@, count: %lu", [response.error localizedDescription], (unsigned long)[response.listObjectsResult.objectSummaries count]);
 
@@ -111,7 +109,7 @@
             
             // Get the URL
             NSError *error = nil;
-            NSURL *url = [self.s3 getPreSignedURL:gpsur error:&error];
+            NSURL *url = [[AmazonClientManager s3] getPreSignedURL:gpsur error:&error];
             
             if(url == nil)
             {
@@ -127,22 +125,23 @@
             else
             {
                 //  AND THEN INSTANTIATE THIS SOUND OBJECT
-                SCSound *temp = [[SCSound alloc] initWithLocation:[self getLocationFromKey:objSum.key] andSoundURL:url];
+                SCSound *temp = [[SCSound alloc] initWithLocation:[self getLocationFromKey:objSum.key] andSoundURL:url andDate:[self getDateFromKey:objSum.key]];
                 [sounds addObject:temp];
             }
         }
         
-        [_delegate receiveSounds:sounds];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_delegate receiveSounds:sounds];
+        });
     });
 }
 
-- (void)addSound:(NSData *) soundData withLocation:(CLLocationCoordinate2D)location;
-{
+- (void)addSound:(NSData *) soundData withLocation:(CLLocationCoordinate2D)location {
     // run this in a background thread
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         
-        NSString *key = [self getKeyFromLocation:location];
+        NSString *key = [self getKeyFromLocation:location andDate:[NSDate date]];
         CLLocationCoordinate2D loc2 = [self getLocationFromKey:key];
         NSLog(@"Adding a sound at location %f, %f. Key is: %@. Getting back the location: %f, %f.", location.latitude, location.longitude, key, loc2.latitude, loc2.longitude);
         
@@ -154,7 +153,7 @@
         por.data        = soundData;
         
         // Put the image data into the specified s3 bucket and object.
-        S3PutObjectResponse *putObjectResponse = [_s3 putObject:por];
+        S3PutObjectResponse *putObjectResponse = [[AmazonClientManager s3] putObject:por];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -165,13 +164,13 @@
             }
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            [_delegate uploadFinished];
         });
     });
 }
 
 // we use our gps coordinates for keys
-- (NSString*) getKeyFromLocation:(CLLocationCoordinate2D)location
-{
+- (NSString*) getKeyPrefixFromLocation:(CLLocationCoordinate2D)location {
     double latnum = location.latitude;
     double lonnum = location.longitude;
     
@@ -186,13 +185,44 @@
         lonnum *= -1;
     }
     
-    NSString *lat = [NSString stringWithFormat:@"%08.5f",latnum];
-    NSString *lon = [NSString stringWithFormat:@"%08.5f",lonnum];
+    NSString *lat = [NSString stringWithFormat:@"%09.5f",latnum];
+    NSLog(@"Lat: %@", lat);
+    NSString *lon = [NSString stringWithFormat:@"%09.5f",lonnum];
+    NSLog(@"Lon: %@", lon);
     
     NSArray *latParts = [lat componentsSeparatedByString:@"."];
     NSArray *lonParts = [lon componentsSeparatedByString:@"."];
     
-    NSString *key = [NSString stringWithFormat:@"%d-%@-%d-%@-%@-%@", latpos, latParts[0], lonpos, lonParts[0], latParts[1], lonParts[1]];
+    NSString *keyPrefix = [NSString stringWithFormat:@"%d-%@-%d-%@", latpos, latParts[0], lonpos, lonParts[0]];
+    
+    return keyPrefix;
+}
+
+// we use our gps coordinates for keys
+- (NSString*) getKeyFromLocation:(CLLocationCoordinate2D)location andDate:(NSDate *)date {
+    double latnum = location.latitude;
+    double lonnum = location.longitude;
+    
+    int latpos = 0;
+    if (latnum < 0) {
+        latpos = 1;
+        latnum *= -1;
+    }
+    int lonpos = 0;
+    if (lonnum < 0) {
+        lonpos = 1;
+        lonnum *= -1;
+    }
+    
+    NSString *lat = [NSString stringWithFormat:@"%09.5f",latnum];
+    NSLog(@"Lat: %@", lat);
+    NSString *lon = [NSString stringWithFormat:@"%09.5f",lonnum];
+    NSLog(@"Lon: %@", lon);
+    
+    NSArray *latParts = [lat componentsSeparatedByString:@"."];
+    NSArray *lonParts = [lon componentsSeparatedByString:@"."];
+    
+    NSString *key = [NSString stringWithFormat:@"%d-%@-%d-%@-%@-%@-%@", latpos, latParts[0], lonpos, lonParts[0], latParts[1], lonParts[1], [_dateFormatter stringFromDate:date]];
     
     return key;
 }
@@ -210,6 +240,16 @@
     
     CLLocationCoordinate2D location =CLLocationCoordinate2DMake(new_lat, new_lon);
     return location;
+}
+
+- (NSDate*) getDateFromKey:(NSString *)key {
+    NSArray *keyParts = [key componentsSeparatedByString:@"-"];
+//    NSLog(@"last part of key is: %@", [keyParts lastObject]);
+//    if ([NSDate dateWithISO8061Format:[keyParts lastObject]] == nil)
+//        NSLog(@"date is nil!");
+//    NSLog(@"Date is: %@", [[NSDate alloc] initWith[keyParts lastObject]] descriptionWithLocale:[NSLocale currentLocale]]);
+    
+    return [_dateFormatter dateFromString:[keyParts lastObject]];
 }
 
 

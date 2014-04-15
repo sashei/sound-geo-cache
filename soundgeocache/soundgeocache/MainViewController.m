@@ -23,6 +23,7 @@
        // database initialization
         _database = [[SCDatabase alloc] init];
         _database.delegate = self;
+        _isGettingSounds = NO;
         
         // init soundstosend
         _soundsToSend = [NSMutableArray new];
@@ -32,6 +33,11 @@
         [_locationManager setDelegate:self];
         // make location updates very granular
         [_locationManager startUpdatingLocation];
+        
+        
+        // the main view that contains the app
+        _mainView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.view addSubview:_mainView];
         
         // maps! well, just one.
         _map = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -43,7 +49,9 @@
         // just for setting the region when we get the CLLocationManager stuff goin' on.
         _shouldUpdateLocation = true;
         
-        [self.view addSubview:_map];
+        _significantLocation = nil;
+        
+        [_mainView addSubview:_map];
         
         // record button
         int recX = self.view.bounds.size.width*.05;
@@ -59,7 +67,18 @@
         //[_recordButton setBackgroundImage:[UIImage imageNamed:@"redbutton.png"] forState:UIControlStateNormal];
         [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png"] forState:UIControlStateNormal];
         [_recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_recordButton];
+        [_recordButton setAlpha:0.0];
+        [_recordButton setHidden:YES];
+        [_mainView addSubview:_recordButton];
+        _shouldShowRecordButton = NO;
+        _isUploadingData = NO;
+        
+        _recordActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [_recordActivityIndicator setCenter:_recordButton.center];
+        [_recordActivityIndicator setHidesWhenStopped:YES];
+        [_recordActivityIndicator setColor:[UIColor darkGrayColor]];
+        [_mainView addSubview:_recordActivityIndicator];
+        
         
         // play / compass?
         int playSizeX = recSizeX;
@@ -70,11 +89,33 @@
         
         _playButton = [[UIButton alloc] initWithFrame:playFrame];
         _playButton.contentMode = UIViewContentModeScaleAspectFit;
-        [_playButton setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
+        [_playButton setImage:[UIImage imageNamed:@"ear.png"] forState:UIControlStateNormal];
         [_playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         //_playButton.alpha = 0.0f;
-        [self.view addSubview:_playButton];
+        [_mainView addSubview:_playButton];
         
+        // mainview is hidden until sounds are loaded
+        //[_mainView setHidden:YES];
+        [_mainView setAlpha:0.3];
+        [_mainView setUserInteractionEnabled:NO];
+        
+        
+        // Add the loading label and activity indicator to self.view
+        
+        _annotationsActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [_annotationsActivityIndicator setCenter:self.view.center];
+        [_annotationsActivityIndicator setHidesWhenStopped:YES];
+        [_annotationsActivityIndicator setColor:[UIColor darkGrayColor]];
+        [self.view addSubview:_annotationsActivityIndicator];
+        
+        _loadingAnnotationsLabel = [[UILabel alloc] init];
+        [_loadingAnnotationsLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [_loadingAnnotationsLabel setText:@"Loading nearby sounds"];
+        [_loadingAnnotationsLabel sizeToFit];
+        CGPoint labelCenter = [_annotationsActivityIndicator center];
+        labelCenter.y += _annotationsActivityIndicator.frame.size.height;
+        [_loadingAnnotationsLabel setCenter:labelCenter];
+        [self.view addSubview:_loadingAnnotationsLabel];
         
         // audio player stuff:
         NSDictionary *recordSettings = [NSDictionary
@@ -92,7 +133,7 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentDirectory = [paths objectAtIndex:0];
         _tempAudioPath = [documentDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-        NSLog(@"Audio path is: %@", _tempAudioPath);
+        //NSLog(@"Audio path is: %@", _tempAudioPath);
         
         NSURL *soundFileURL = [NSURL fileURLWithPath:_tempAudioPath];
         NSError *error = nil;
@@ -104,12 +145,17 @@
         // set up table view controller for sound detail views
         _soundsView = [SCSoundsViewController new];
         
+        _closeSounds = nil;
+        
     }
     return self;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+    if (!_closeSounds) {
+        [_annotationsActivityIndicator startAnimating];
+    }
 }
 
 #pragma mark - location & map delegate methods
@@ -119,27 +165,54 @@
     CLLocation *current = [locations objectAtIndex:([locations count]-1)];
     CLLocationCoordinate2D center = current.coordinate;
     
+    // for the first update, get our first significant location
+    if (!_significantLocation) {
+        //NSLog(@"Setting significant location");
+        _significantLocation = current;
+        _isGettingSounds = YES;
+        [_database requestSoundsNear:center];
+    }
+    
+    // hack for a significant location change (> 10km) to call the database
+    if ([_significantLocation distanceFromLocation:current] > 10000) {
+        _significantLocation = current;
+        _isGettingSounds = YES;
+        [_database requestSoundsNear:center];
+    }
+    
     if (_shouldUpdateLocation) {
         [_map setRegion:(MKCoordinateRegionMakeWithDistance(center, milesToMeters(1.0f), milesToMeters(1.0f)))];
         _shouldUpdateLocation = false;
     }
     
     // cleanup our soundstosend object as we move:
-    
     NSMutableArray *toRemove = [NSMutableArray new];
-    for (SCSound *s in _soundsToSend) {
-        CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
+    
+    if (!_isGettingSounds) {
+        for (SCSound *s in _soundsToSend) {
+            CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
+            
+            if (![self isWithinTenFeet:loc])
+                [toRemove addObject:s];
+        }
         
-        if (![self isWithinTenFeet:loc])
-            [toRemove addObject:s];
+        for (SCSound *p in _closeSounds) {
+            CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
+            if (![_soundsToSend containsObject:p]) {
+                if ([self isWithinTenFeet:pLoc]) {
+                    [_soundsToSend addObject:p];
+                }
+            }
+            else {
+                if (![self isWithinTenFeet:pLoc]) {
+                    [_soundsToSend removeObject:p];
+                }
+            }
+        }
     }
     
-    [_soundsToSend removeObjectsInArray:toRemove];
-    
-//    if ([_soundsToSend count] == 0)
-//        _playButton.alpha = 0.0f;
-
-    [_database requestSoundsNear:center];
+    [self updatePlayButton];
+    [self updateRecordButton];
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -157,46 +230,67 @@
                                                           reuseIdentifier:identifier];
         }
         
-        annotationView.image = [UIImage imageNamed:@"smallbluecircle.png"];
+        annotationView.image = [UIImage imageNamed:@"orangesound.png"];
         
         return annotationView;
+        
     } else {
         return nil;
     }
-    
-    return nil;
 }
 
 # pragma mark - database delegate methods & logic
 
 -(void)receiveSounds:(NSMutableArray *)sounds
 {
+    _isGettingSounds = NO;
+    if (!_closeSounds) {
+        [_annotationsActivityIndicator stopAnimating];
+        [_loadingAnnotationsLabel setHidden:YES];
+        //[_mainView setHidden:NO];
+        [UIView animateWithDuration:0.5 animations:^{
+            [_mainView setAlpha:1.0];
+        }];
+        [_mainView setUserInteractionEnabled:YES];
+    }
+    
     // the sounds array will be coming from john's database
+    //NSLog(@"Num annotations: %lu", (unsigned long)[_map.annotations count]);
     
     _closeSounds = sounds;
+    //NSLog(@"Num close sounds: %lu", (unsigned long)[_closeSounds count]);
 
     [_soundsToSend removeAllObjects];
     
-    //[self removeAllPinsButUserLocation];
-    
     for (SCSound *p in _closeSounds) {
-        // check to make sure this particular sound isn't already in our map
-        if (![self containsURL:_map.annotations fromSound:p])
+        if (![self soundAlreadyAnnotated:p])
             [_map addAnnotation:p];
         
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
-        
-        // check close-ness of each new thing around us
-        if ([self isWithinTenFeet:pLoc]) {
-            [self closeEnough:p];
+        if (![_soundsToSend containsObject:p]) {
+            if ([self isWithinTenFeet:pLoc]) {
+                [_soundsToSend addObject:p];
+            }
+        }
+        else {
+            if (![self isWithinTenFeet:pLoc]) {
+                [_soundsToSend removeObject:p];
+            }
         }
     }
     
-//    [_map removeAnnotations:annotations];
-//    [_map addAnnotations:annotations];
-    
     // useful to look at for debugging purposes!
     NSArray *annotations = _map.annotations;
+    //NSLog(@"Num annotations: %lu", (unsigned long)[annotations count]);
+}
+
+- (void) uploadFinished {
+    _isGettingSounds = YES;
+    [_database requestSoundsNear:_locationManager.location.coordinate];
+    [_recordActivityIndicator stopAnimating];
+    _isUploadingData = NO;
+    [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png" ] forState:UIControlStateNormal];
+    [self updateRecordButton];
 }
 
 -(void)closeEnough:(SCSound *)sound
@@ -206,7 +300,6 @@
 //    [UIView commitAnimations];
     
     [_soundsToSend addObject:sound];
-    
 }
 
 #pragma mark - button functionality
@@ -224,14 +317,14 @@
     }
     else {
         [_recorder stop];
-        [_recordButton setImage:[UIImage imageNamed:@"MIC-3.png"] forState:UIControlStateNormal];
         audioData = [[NSData alloc] initWithContentsOfFile:_tempAudioPath];
         //[[NSFileManager defaultManager] removeItemAtPath:_tempAudioPath error:nil];
         
         //need to do something with data to store into database!!! D:
         [_database addSound:audioData withLocation:_locationManager.location.coordinate];
-        
-        [_database requestSoundsNear:_locationManager.location.coordinate];
+        _isUploadingData = YES;
+        [self updateRecordButton];
+        [_recordActivityIndicator startAnimating];
     }
 }
 
@@ -242,6 +335,39 @@
     [self.navigationController pushViewController:_soundsView animated:YES];
 }
 
+- (void) updatePlayButton {
+    if ([_playButton isHidden] && ([_soundsToSend count] > 0) && ![_recorder isRecording] && !_isUploadingData) {
+        [_playButton setHidden:NO];
+        [UIView animateWithDuration:0.5 animations:^{
+            [_playButton setAlpha:1.0];
+        }];
+    }
+    if (![_playButton isHidden] && (([_soundsToSend count] == 0) || [_recorder isRecording] || _isUploadingData))
+        [UIView animateWithDuration:0.5 animations:^{
+            [_playButton setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            [_playButton setHidden:YES];
+        }];
+}
+
+- (void) updateRecordButton {
+    _shouldShowRecordButton = !_isUploadingData && (_locationManager.location.horizontalAccuracy < 50);
+    
+    if (!_shouldShowRecordButton && ![_recordButton isHidden]) {
+        [UIView animateWithDuration:0.5 animations:^(void){
+            [_recordButton setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            [_recordButton setHidden:YES];
+        }];
+    }
+    else if (_shouldShowRecordButton && [_recordButton isHidden]) {
+        [_recordButton setHidden:NO];
+        [UIView animateWithDuration:0.5 animations:^(void){
+            [_recordButton setAlpha:1.0];
+        }];
+    }
+}
+
 #pragma mark - helper functions
 
 float milesToMeters(float miles) {
@@ -250,31 +376,21 @@ float milesToMeters(float miles) {
 
 -(bool)isWithinTenFeet:(CLLocation *)loc
 {
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 300.0);
+    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 50.0);
 }
 
--(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound
+-(bool)soundAlreadyAnnotated:(SCSound *)sound
 {
-//    for (id note in annotations) {
-//        if ([note isMemberOfClass:[SCSound class]]) {
-//            SCSound *innerSound = note;
-//            
-//            if ([innerSound.soundURL.absoluteString isEqual:sound.soundURL.absoluteString])
-//                return true;
-//        }
-//    }
-//    return false;
-
     NSUInteger index = -1;
     index = [_map.annotations indexOfObjectPassingTest:
                         ^BOOL(id obj, NSUInteger idx, BOOL *stop){
                             return [self clCoordinatesEqual:((SCSound*)obj).coordinate and: sound.coordinate];
                         }];
-    if (index == -1)
+    if (index == NSNotFound)
     {
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 - (BOOL) clCoordinatesEqual:(CLLocationCoordinate2D)c1 and: (CLLocationCoordinate2D)c2 {

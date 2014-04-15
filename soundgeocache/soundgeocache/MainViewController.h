@@ -17,18 +17,27 @@
 @interface MainViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, SCDatabaseListener>
 
 // view stuff
+@property UIView *mainView;
 @property MKMapView *map;
 @property UIButton *recordButton;
+@property BOOL shouldShowRecordButton;
 @property UIButton *playButton;
+@property UIActivityIndicatorView *recordActivityIndicator;
+
+@property UILabel *loadingAnnotationsLabel;
+@property UIActivityIndicatorView *annotationsActivityIndicator;
 
 // location stuff
 @property CLLocationManager *locationManager;
+@property CLLocation *significantLocation;
 @property BOOL shouldUpdateLocation;
 
 // data stuff
 @property SCDatabase *database;
 @property NSMutableArray *closeSounds;
 @property NSMutableArray *soundsToSend;
+@property BOOL isUploadingData;
+@property BOOL isGettingSounds;
 
 // audio stuff
 @property AVAudioRecorder *recorder;
@@ -41,7 +50,7 @@
 -(void)receiveSounds:(NSMutableArray *)sounds;
 -(void)closeEnough:(SCSound *)sound;
 
--(bool)containsURL:(NSArray *)annotations fromSound:(SCSound *)sound;
+-(bool)soundAlreadyAnnotated:(SCSound *)sound;
 -(bool)isWithinTenFeet:(CLLocation *)location;
 -(NSArray *)getBounds;
 

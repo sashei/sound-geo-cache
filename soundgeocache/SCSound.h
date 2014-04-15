@@ -13,7 +13,8 @@
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property NSURL *soundURL;
+@property NSDate *recordDate;
 
-- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSURL*) url;
+- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSURL*) url andDate:(NSDate*) date;
 
 @end

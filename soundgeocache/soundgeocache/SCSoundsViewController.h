@@ -17,6 +17,7 @@
 @property NSMutableArray *sounds;
 @property AVAudioPlayer *player;
 @property NSIndexPath *lastSelected;
+@property NSDateFormatter *dateFormatter;
 
 - (void) loadSounds:(NSMutableArray*) sounds;
 

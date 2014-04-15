@@ -10,11 +10,13 @@
 
 @implementation SCSound 
 
-- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSString*) url {
+- (id) initWithLocation:(CLLocationCoordinate2D) loc andSoundURL:(NSURL*) url andDate:(NSDate *)date {
     self = [super init];
     if (self) {
         _coordinate = loc;
         _soundURL = url;
+        _recordDate = date;
+        NSLog(@"Date is: %@", [date descriptionWithLocale:[NSLocale currentLocale]]);
     }
     return self;
 }

@@ -34,6 +34,9 @@
     [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
+    
+    _dateFormatter = [NSDateFormatter new];
+    [_dateFormatter setDateFormat:@"'at' HH:mm 'on' MM/dd/yyyy"];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -41,16 +44,13 @@
     
     NSError *trash;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&trash];
-    NSLog(@"The error is: %@", trash);
     [[AVAudioSession sharedInstance] setActive: YES error: &trash];
     [[AVAudioSession sharedInstance] setDelegate:self];
-    NSLog(@"The error is: %@", trash);
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     NSError *trash;
     [[AVAudioSession sharedInstance] setActive: NO error: &trash];
-    NSLog(@"The error is: %@", trash);
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,7 +60,12 @@
 }
 
 - (void) loadSounds:(NSMutableArray *)sounds  {
-    _sounds = sounds;
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"recordDate"
+                                                                    ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSMutableArray *soundsSortedByTime = [NSMutableArray arrayWithArray:[sounds sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    _sounds = soundsSortedByTime;
     [_tableView reloadData];
 }
 
@@ -87,7 +92,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    SCSound *sound = [_sounds objectAtIndex:indexPath.row];
     [cell.imageView setImage:[UIImage imageNamed:@"Play.png"]];
+    NSLog(@"Date is: %@", [sound.recordDate descriptionWithLocale:[NSLocale currentLocale]]);
+    [cell.textLabel setText:[_dateFormatter stringFromDate:sound.recordDate]];
     return cell;
 }
 
@@ -150,30 +158,38 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // FIXME PAUSE BUTTON STAYS ALWAYS SHIIIIITTTT
-    
-    NSLog(@"Trying to get the painting at row %ld", (long)indexPath.row);
-    SCSound *sound = [_sounds objectAtIndex:indexPath.row];
-    NSError *error;
-    [_player stop];
-    NSLog(@"URL is: %@", [sound soundURL]);
-    
-    _lastSelected = indexPath;
-    
-    NSError *playerError;
-    NSData *data = [NSData dataWithContentsOfURL:[sound soundURL]];
-    _player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
-    NSLog(@"The player initializes with error: %@", playerError);
-    if (error)
-        NSLog(@"Error in didSelectRowAtIndexPath is: %@", [error localizedDescription]);
+    if (_lastSelected != indexPath) {
+        SCSound *sound = [_sounds objectAtIndex:indexPath.row];
+        [_player stop];
+        NSLog(@"URL is: %@", [sound soundURL]);
+        
+        _lastSelected = indexPath;
+        
+        NSError *playerError;
+        NSData *data = [NSData dataWithContentsOfURL:[sound soundURL]];
+        _player = [[AVAudioPlayer alloc] initWithData:data error:&playerError];
+        if (playerError)
+            NSLog(@"The player initializes with error: %@", playerError);
+        else {
+            _player.delegate = self;
+            [_player setVolume:1.0];
+            [_player prepareToPlay];
+            [_player play];
+        }
+        
+        [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Pause.png"]];
+    }
     else {
-        _player.delegate = self;
-        [_player setVolume:1.0];
-        [_player prepareToPlay];
-        [_player play];
+        if ([_player isPlaying]) {
+            [_player pause];
+            [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Play.png"]];
+        }
+        else {
+            [_player play];
+            [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Pause.png"]];
+        }
     }
     
-    [[tableView cellForRowAtIndexPath:indexPath].imageView setImage:[UIImage imageNamed:@"Pause.png"]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

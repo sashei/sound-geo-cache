@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6716F3C318FC9EE300104F0B /* AmazonClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3C218FC9EE300104F0B /* AmazonClientManager.m */; };
+		6716F3DD18FCA5EC00104F0B /* AmazonKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3C618FCA5EB00104F0B /* AmazonKeyChainWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3DE18FCA5EC00104F0B /* AmazonTVMClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3C818FCA5EB00104F0B /* AmazonTVMClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3DF18FCA5EC00104F0B /* Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3CA18FCA5EB00104F0B /* Crypto.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E018FCA5EC00104F0B /* GetTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3CC18FCA5EB00104F0B /* GetTokenRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E118FCA5EC00104F0B /* GetTokenResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3CE18FCA5EC00104F0B /* GetTokenResponse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E218FCA5EC00104F0B /* GetTokenResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3D018FCA5EC00104F0B /* GetTokenResponseHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E318FCA5EC00104F0B /* JSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3D218FCA5EC00104F0B /* JSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E418FCA5EC00104F0B /* RegisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3D418FCA5EC00104F0B /* RegisterDeviceRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E518FCA5EC00104F0B /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3D618FCA5EC00104F0B /* Request.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E618FCA5EC00104F0B /* RequestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3D818FCA5EC00104F0B /* RequestDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E718FCA5EC00104F0B /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3DA18FCA5EC00104F0B /* Response.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6716F3E818FCA5EC00104F0B /* ResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6716F3DC18FCA5EC00104F0B /* ResponseHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		676EE6CB18FBECA900F0AC38 /* ear.png in Resources */ = {isa = PBXBuildFile; fileRef = 676EE6CA18FBECA900F0AC38 /* ear.png */; };
+		676EE6CD18FBF88D00F0AC38 /* testcircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 676EE6CC18FBF88D00F0AC38 /* testcircle@2x.png */; };
+		676EE6CF18FBFA2100F0AC38 /* orangesound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 676EE6CE18FBFA2100F0AC38 /* orangesound@2x.png */; };
 		67B1C6C818F9076D00082620 /* SCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B1C6C718F9076D00082620 /* SCDatabase.m */; };
 		67B1C6CC18F907A800082620 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6C918F907A800082620 /* AWSRuntime.framework */; };
 		67B1C6CD18F907A800082620 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B1C6CA18F907A800082620 /* AWSS3.framework */; };
@@ -38,7 +54,7 @@
 		7D942F4318F90B8E004D30FA /* whitecircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D942F4218F90B8E004D30FA /* whitecircle.png */; };
 		7DA9E91F18F9655D00C279B4 /* smallwhitecircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9E91E18F9655D00C279B4 /* smallwhitecircle.png */; };
 		7DA9E92118F96F1C00C279B4 /* smallredcircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9E92018F96F1C00C279B4 /* smallredcircle.png */; };
-		7DA9E92818F98A1000C279B4 /* smallbluecircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9E92718F98A1000C279B4 /* smallbluecircle.png */; };
+		7DA9E92818F98A1000C279B4 /* smallbluecircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9E92718F98A1000C279B4 /* smallbluecircle@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +68,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6716F3C118FC9EE300104F0B /* AmazonClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmazonClientManager.h; sourceTree = "<group>"; };
+		6716F3C218FC9EE300104F0B /* AmazonClientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmazonClientManager.m; sourceTree = "<group>"; };
+		6716F3C518FCA5EB00104F0B /* AmazonKeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmazonKeyChainWrapper.h; sourceTree = "<group>"; };
+		6716F3C618FCA5EB00104F0B /* AmazonKeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmazonKeyChainWrapper.m; sourceTree = "<group>"; };
+		6716F3C718FCA5EB00104F0B /* AmazonTVMClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmazonTVMClient.h; sourceTree = "<group>"; };
+		6716F3C818FCA5EB00104F0B /* AmazonTVMClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmazonTVMClient.m; sourceTree = "<group>"; };
+		6716F3C918FCA5EB00104F0B /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
+		6716F3CA18FCA5EB00104F0B /* Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crypto.m; sourceTree = "<group>"; };
+		6716F3CB18FCA5EB00104F0B /* GetTokenRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTokenRequest.h; sourceTree = "<group>"; };
+		6716F3CC18FCA5EB00104F0B /* GetTokenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTokenRequest.m; sourceTree = "<group>"; };
+		6716F3CD18FCA5EC00104F0B /* GetTokenResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTokenResponse.h; sourceTree = "<group>"; };
+		6716F3CE18FCA5EC00104F0B /* GetTokenResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTokenResponse.m; sourceTree = "<group>"; };
+		6716F3CF18FCA5EC00104F0B /* GetTokenResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetTokenResponseHandler.h; sourceTree = "<group>"; };
+		6716F3D018FCA5EC00104F0B /* GetTokenResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetTokenResponseHandler.m; sourceTree = "<group>"; };
+		6716F3D118FCA5EC00104F0B /* JSONUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONUtilities.h; sourceTree = "<group>"; };
+		6716F3D218FCA5EC00104F0B /* JSONUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONUtilities.m; sourceTree = "<group>"; };
+		6716F3D318FCA5EC00104F0B /* RegisterDeviceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterDeviceRequest.h; sourceTree = "<group>"; };
+		6716F3D418FCA5EC00104F0B /* RegisterDeviceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDeviceRequest.m; sourceTree = "<group>"; };
+		6716F3D518FCA5EC00104F0B /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		6716F3D618FCA5EC00104F0B /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		6716F3D718FCA5EC00104F0B /* RequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestDelegate.h; sourceTree = "<group>"; };
+		6716F3D818FCA5EC00104F0B /* RequestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestDelegate.m; sourceTree = "<group>"; };
+		6716F3D918FCA5EC00104F0B /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
+		6716F3DA18FCA5EC00104F0B /* Response.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Response.m; sourceTree = "<group>"; };
+		6716F3DB18FCA5EC00104F0B /* ResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHandler.h; sourceTree = "<group>"; };
+		6716F3DC18FCA5EC00104F0B /* ResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHandler.m; sourceTree = "<group>"; };
+		676EE6CA18FBECA900F0AC38 /* ear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ear.png; sourceTree = "<group>"; };
+		676EE6CC18FBF88D00F0AC38 /* testcircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testcircle@2x.png"; sourceTree = "<group>"; };
+		676EE6CE18FBFA2100F0AC38 /* orangesound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orangesound@2x.png"; sourceTree = "<group>"; };
 		67B1C6C618F9076D00082620 /* SCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDatabase.h; sourceTree = "<group>"; };
 		67B1C6C718F9076D00082620 /* SCDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDatabase.m; sourceTree = "<group>"; };
 		67B1C6C918F907A800082620 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
@@ -92,7 +137,7 @@
 		7D942F4218F90B8E004D30FA /* whitecircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitecircle.png; sourceTree = "<group>"; };
 		7DA9E91E18F9655D00C279B4 /* smallwhitecircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallwhitecircle.png; sourceTree = "<group>"; };
 		7DA9E92018F96F1C00C279B4 /* smallredcircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallredcircle.png; path = ../smallredcircle.png; sourceTree = "<group>"; };
-		7DA9E92718F98A1000C279B4 /* smallbluecircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallbluecircle.png; sourceTree = "<group>"; };
+		7DA9E92718F98A1000C279B4 /* smallbluecircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallbluecircle@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +169,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6716F3C418FCA5EB00104F0B /* TVMClient */ = {
+			isa = PBXGroup;
+			children = (
+				6716F3C518FCA5EB00104F0B /* AmazonKeyChainWrapper.h */,
+				6716F3C618FCA5EB00104F0B /* AmazonKeyChainWrapper.m */,
+				6716F3C718FCA5EB00104F0B /* AmazonTVMClient.h */,
+				6716F3C818FCA5EB00104F0B /* AmazonTVMClient.m */,
+				6716F3C918FCA5EB00104F0B /* Crypto.h */,
+				6716F3CA18FCA5EB00104F0B /* Crypto.m */,
+				6716F3CB18FCA5EB00104F0B /* GetTokenRequest.h */,
+				6716F3CC18FCA5EB00104F0B /* GetTokenRequest.m */,
+				6716F3CD18FCA5EC00104F0B /* GetTokenResponse.h */,
+				6716F3CE18FCA5EC00104F0B /* GetTokenResponse.m */,
+				6716F3CF18FCA5EC00104F0B /* GetTokenResponseHandler.h */,
+				6716F3D018FCA5EC00104F0B /* GetTokenResponseHandler.m */,
+				6716F3D118FCA5EC00104F0B /* JSONUtilities.h */,
+				6716F3D218FCA5EC00104F0B /* JSONUtilities.m */,
+				6716F3D318FCA5EC00104F0B /* RegisterDeviceRequest.h */,
+				6716F3D418FCA5EC00104F0B /* RegisterDeviceRequest.m */,
+				6716F3D518FCA5EC00104F0B /* Request.h */,
+				6716F3D618FCA5EC00104F0B /* Request.m */,
+				6716F3D718FCA5EC00104F0B /* RequestDelegate.h */,
+				6716F3D818FCA5EC00104F0B /* RequestDelegate.m */,
+				6716F3D918FCA5EC00104F0B /* Response.h */,
+				6716F3DA18FCA5EC00104F0B /* Response.m */,
+				6716F3DB18FCA5EC00104F0B /* ResponseHandler.h */,
+				6716F3DC18FCA5EC00104F0B /* ResponseHandler.m */,
+			);
+			path = TVMClient;
+			sourceTree = "<group>";
+		};
 		7D0C247E18F8E61300B83AC9 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +252,9 @@
 				67B1C6DE18F92EA800082620 /* SCSoundsViewController.m */,
 				67B1C6DF18F92EA800082620 /* SCSoundsViewController.xib */,
 				7D0C249C18F8E61300B83AC9 /* Images.xcassets */,
+				6716F3C118FC9EE300104F0B /* AmazonClientManager.h */,
+				6716F3C218FC9EE300104F0B /* AmazonClientManager.m */,
+				6716F3C418FCA5EB00104F0B /* TVMClient */,
 				7D7F4D9A18F907E0003F6D12 /* img */,
 				7D0C249118F8E61300B83AC9 /* Supporting Files */,
 			);
@@ -214,10 +293,13 @@
 		7D7F4D9A18F907E0003F6D12 /* img */ = {
 			isa = PBXGroup;
 			children = (
-				7DA9E92718F98A1000C279B4 /* smallbluecircle.png */,
+				676EE6CE18FBFA2100F0AC38 /* orangesound@2x.png */,
+				7DA9E92718F98A1000C279B4 /* smallbluecircle@2x.png */,
+				676EE6CC18FBF88D00F0AC38 /* testcircle@2x.png */,
 				7DA9E92018F96F1C00C279B4 /* smallredcircle.png */,
 				7DA9E91E18F9655D00C279B4 /* smallwhitecircle.png */,
 				67B1C6EC18F93EA500082620 /* MIC-3.png */,
+				676EE6CA18FBECA900F0AC38 /* ear.png */,
 				67B1C6ED18F93EA500082620 /* Pause.png */,
 				67B1C6EE18F93EA500082620 /* Play.png */,
 				67B1C6EF18F93EA500082620 /* Stop.png */,
@@ -303,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */,
-				7DA9E92818F98A1000C279B4 /* smallbluecircle.png in Resources */,
+				7DA9E92818F98A1000C279B4 /* smallbluecircle@2x.png in Resources */,
 				67B1C6F118F93EA500082620 /* Pause.png in Resources */,
 				67B1C6F318F93EA500082620 /* Stop.png in Resources */,
+				676EE6CD18FBF88D00F0AC38 /* testcircle@2x.png in Resources */,
+				676EE6CB18FBECA900F0AC38 /* ear.png in Resources */,
 				7DA9E92118F96F1C00C279B4 /* smallredcircle.png in Resources */,
 				7D7F4D9918F907D1003F6D12 /* redcircle.png in Resources */,
 				7D942F4318F90B8E004D30FA /* whitecircle.png in Resources */,
@@ -314,6 +398,7 @@
 				7D0C249518F8E61300B83AC9 /* InfoPlist.strings in Resources */,
 				7D0C249D18F8E61300B83AC9 /* Images.xcassets in Resources */,
 				7DA9E91F18F9655D00C279B4 /* smallwhitecircle.png in Resources */,
+				676EE6CF18FBFA2100F0AC38 /* orangesound@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,12 +417,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6716F3E418FCA5EC00104F0B /* RegisterDeviceRequest.m in Sources */,
+				6716F3E318FCA5EC00104F0B /* JSONUtilities.m in Sources */,
+				6716F3E618FCA5EC00104F0B /* RequestDelegate.m in Sources */,
+				6716F3C318FC9EE300104F0B /* AmazonClientManager.m in Sources */,
 				67B1C6D118F916FC00082620 /* Constants.m in Sources */,
+				6716F3E818FCA5EC00104F0B /* ResponseHandler.m in Sources */,
+				6716F3E218FCA5EC00104F0B /* GetTokenResponseHandler.m in Sources */,
+				6716F3DF18FCA5EC00104F0B /* Crypto.m in Sources */,
+				6716F3E518FCA5EC00104F0B /* Request.m in Sources */,
+				6716F3E118FCA5EC00104F0B /* GetTokenResponse.m in Sources */,
 				67B1C6D418F9187F00082620 /* SCSound.m in Sources */,
 				7D0C249B18F8E61300B83AC9 /* AppDelegate.m in Sources */,
 				67B1C6E018F92EA800082620 /* SCSoundsViewController.m in Sources */,
+				6716F3DD18FCA5EC00104F0B /* AmazonKeyChainWrapper.m in Sources */,
+				6716F3E718FCA5EC00104F0B /* Response.m in Sources */,
 				7D0C24BB18F8E75500B83AC9 /* MainViewController.m in Sources */,
 				67B1C6C818F9076D00082620 /* SCDatabase.m in Sources */,
+				6716F3DE18FCA5EC00104F0B /* AmazonTVMClient.m in Sources */,
+				6716F3E018FCA5EC00104F0B /* GetTokenRequest.m in Sources */,
 				7D0C249718F8E61300B83AC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
