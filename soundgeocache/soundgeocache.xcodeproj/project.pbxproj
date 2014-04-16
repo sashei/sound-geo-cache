@@ -35,6 +35,10 @@
 		67B1C6F118F93EA500082620 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6ED18F93EA500082620 /* Pause.png */; };
 		67B1C6F218F93EA500082620 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6EE18F93EA500082620 /* Play.png */; };
 		67B1C6F318F93EA500082620 /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B1C6EF18F93EA500082620 /* Stop.png */; };
+		67B3E2BC18FE0FEF00C9ECDD /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3E2BB18FE0FEF00C9ECDD /* help.png */; };
+		67B3E2BF18FE3D8600C9ECDD /* echo-help.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3E2BD18FE3D8600C9ECDD /* echo-help.png */; };
+		67B3E2C018FE3D8600C9ECDD /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3E2BE18FE3D8600C9ECDD /* exit.png */; };
+		67B3E2C218FE40A500C9ECDD /* echo-help-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3E2C118FE40A500C9ECDD /* echo-help-box@2x.png */; };
 		7D0C248B18F8E61300B83AC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248A18F8E61300B83AC9 /* Foundation.framework */; };
 		7D0C248D18F8E61300B83AC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */; };
 		7D0C248F18F8E61300B83AC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C248E18F8E61300B83AC9 /* UIKit.framework */; };
@@ -113,6 +117,10 @@
 		67B1C6ED18F93EA500082620 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		67B1C6EE18F93EA500082620 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		67B1C6EF18F93EA500082620 /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
+		67B3E2BB18FE0FEF00C9ECDD /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		67B3E2BD18FE3D8600C9ECDD /* echo-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "echo-help.png"; sourceTree = "<group>"; };
+		67B3E2BE18FE3D8600C9ECDD /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
+		67B3E2C118FE40A500C9ECDD /* echo-help-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "echo-help-box@2x.png"; sourceTree = "<group>"; };
 		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -293,7 +301,11 @@
 		7D7F4D9A18F907E0003F6D12 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				67B3E2C118FE40A500C9ECDD /* echo-help-box@2x.png */,
+				67B3E2BD18FE3D8600C9ECDD /* echo-help.png */,
+				67B3E2BE18FE3D8600C9ECDD /* exit.png */,
 				676EE6CE18FBFA2100F0AC38 /* orangesound@2x.png */,
+				67B3E2BB18FE0FEF00C9ECDD /* help.png */,
 				7DA9E92718F98A1000C279B4 /* smallbluecircle@2x.png */,
 				676EE6CC18FBF88D00F0AC38 /* testcircle@2x.png */,
 				7DA9E92018F96F1C00C279B4 /* smallredcircle.png */,
@@ -384,15 +396,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B3E2BF18FE3D8600C9ECDD /* echo-help.png in Resources */,
 				67B1C6E118F92EA800082620 /* SCSoundsViewController.xib in Resources */,
 				7DA9E92818F98A1000C279B4 /* smallbluecircle@2x.png in Resources */,
+				67B3E2C218FE40A500C9ECDD /* echo-help-box@2x.png in Resources */,
 				67B1C6F118F93EA500082620 /* Pause.png in Resources */,
 				67B1C6F318F93EA500082620 /* Stop.png in Resources */,
+				67B3E2BC18FE0FEF00C9ECDD /* help.png in Resources */,
 				676EE6CD18FBF88D00F0AC38 /* testcircle@2x.png in Resources */,
 				676EE6CB18FBECA900F0AC38 /* ear.png in Resources */,
 				7DA9E92118F96F1C00C279B4 /* smallredcircle.png in Resources */,
 				7D7F4D9918F907D1003F6D12 /* redcircle.png in Resources */,
 				7D942F4318F90B8E004D30FA /* whitecircle.png in Resources */,
+				67B3E2C018FE3D8600C9ECDD /* exit.png in Resources */,
 				67B1C6F018F93EA500082620 /* MIC-3.png in Resources */,
 				67B1C6F218F93EA500082620 /* Play.png in Resources */,
 				7D0C249518F8E61300B83AC9 /* InfoPlist.strings in Resources */,
@@ -513,7 +529,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "207661B3-CBC5-406F-B9C5-CA8F77164B64";
+				PROVISIONING_PROFILE = "6449E488-2342-4BAE-8B2C-143D6A790F94";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -546,7 +562,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PROVISIONING_PROFILE = "207661B3-CBC5-406F-B9C5-CA8F77164B64";
+				PROVISIONING_PROFILE = "6449E488-2342-4BAE-8B2C-143D6A790F94";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -567,8 +583,8 @@
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "207661B3-CBC5-406F-B9C5-CA8F77164B64";
+				PRODUCT_NAME = Echo;
+				PROVISIONING_PROFILE = "6449E488-2342-4BAE-8B2C-143D6A790F94";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -588,8 +604,8 @@
 				GCC_PREFIX_HEADER = "soundgeocache/soundgeocache-Prefix.pch";
 				INFOPLIST_FILE = "soundgeocache/soundgeocache-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "207661B3-CBC5-406F-B9C5-CA8F77164B64";
+				PRODUCT_NAME = Echo;
+				PROVISIONING_PROFILE = "6449E488-2342-4BAE-8B2C-143D6A790F94";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

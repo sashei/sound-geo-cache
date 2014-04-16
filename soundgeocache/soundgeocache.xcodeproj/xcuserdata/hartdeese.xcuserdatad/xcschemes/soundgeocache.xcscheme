@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7D0C248618F8E61300B83AC9"
-               BuildableName = "soundgeocache.app"
+               BuildableName = "Echo.app"
                BlueprintName = "soundgeocache"
                ReferencedContainer = "container:soundgeocache.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D0C248618F8E61300B83AC9"
-            BuildableName = "soundgeocache.app"
+            BuildableName = "Echo.app"
             BlueprintName = "soundgeocache"
             ReferencedContainer = "container:soundgeocache.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D0C248618F8E61300B83AC9"
-            BuildableName = "soundgeocache.app"
+            BuildableName = "Echo.app"
             BlueprintName = "soundgeocache"
             ReferencedContainer = "container:soundgeocache.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D0C248618F8E61300B83AC9"
-            BuildableName = "soundgeocache.app"
+            BuildableName = "Echo.app"
             BlueprintName = "soundgeocache"
             ReferencedContainer = "container:soundgeocache.xcodeproj">
          </BuildableReference>

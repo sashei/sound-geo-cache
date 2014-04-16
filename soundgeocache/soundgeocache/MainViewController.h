@@ -22,7 +22,9 @@
 @property UIButton *recordButton;
 @property BOOL shouldShowRecordButton;
 @property UIButton *playButton;
+@property UIButton *helpButton;
 @property UIActivityIndicatorView *recordActivityIndicator;
+@property UIImageView *helpView;
 
 @property UILabel *loadingAnnotationsLabel;
 @property UIActivityIndicatorView *annotationsActivityIndicator;
@@ -51,11 +53,12 @@
 -(void)closeEnough:(SCSound *)sound;
 
 -(bool)soundAlreadyAnnotated:(SCSound *)sound;
--(bool)isWithinTenFeet:(CLLocation *)location;
+-(bool)isWithinRange:(CLLocation *)location;
 -(NSArray *)getBounds;
 
 -(void)recordButtonPressed:(id)sender;
 -(void)playButtonPressed:(id)sender;
+-(void)helpButtonPressed:(id)sender;
 
 - (void)removeAllPinsButUserLocation;
 

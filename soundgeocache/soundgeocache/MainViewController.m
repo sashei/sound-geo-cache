@@ -55,7 +55,7 @@
         
         // record button
         int recX = self.view.bounds.size.width*.05;
-        int recSizeX = self.view.bounds.size.width*.2;
+        int recSizeX = self.view.bounds.size.width*.15;
         int recSizeY = recSizeX;
         int recY = self.view.bounds.size.height - (recSizeX + recX);
         CGRect recordFrame = CGRectMake(recX, recY, recSizeX, recSizeY);
@@ -94,6 +94,27 @@
         //_playButton.alpha = 0.0f;
         [_mainView addSubview:_playButton];
         
+        _helpView = [[UIImageView alloc] init];
+        [_helpView setImage:[UIImage imageNamed:@"echo-help-box.png"]];
+        [_helpView sizeToFit];
+        [_helpView setCenter:self.view.center];
+        [_mainView addSubview:_helpView];
+        //[_helpView setUserInteractionEnabled:YES];
+        [_helpView setAlpha:0.0];
+        [_helpView setHidden:YES];
+        
+        int helpSizeX = recSizeX;
+        int helpSizeY = helpSizeX;
+        int helpX = self.view.bounds.size.width*.05;
+        int helpY = helpX;
+        CGRect helpFrame = CGRectMake(helpX, helpY, helpSizeX, helpSizeY);
+        
+        _helpButton = [[UIButton alloc] initWithFrame:helpFrame];
+        _helpButton.contentMode = UIViewContentModeScaleAspectFit;
+        [_helpButton setImage:[UIImage imageNamed:@"help.png"] forState:UIControlStateNormal];
+        [_helpButton addTarget:self action:@selector(helpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainView addSubview:_helpButton];
+        
         // mainview is hidden until sounds are loaded
         //[_mainView setHidden:YES];
         [_mainView setAlpha:0.3];
@@ -124,11 +145,20 @@
                                         AVEncoderAudioQualityKey,
                                         [NSNumber numberWithInt:16],
                                         AVEncoderBitRateKey,
-                                        [NSNumber numberWithInt: 2],
+                                        [NSNumber numberWithInt: 1],
                                         AVNumberOfChannelsKey,
-                                        [NSNumber numberWithFloat:44100.0],
+                                        [NSNumber numberWithFloat:22050.0],
                                         AVSampleRateKey,
                                         nil];
+        
+//        NSDictionary *recordSettings =
+//        [[NSDictionary alloc] initWithObjectsAndKeys:
+//         [NSNumber numberWithFloat: 22050.0], AVSampleRateKey,
+//         [NSNumber numberWithInt: kAudioFormatAppleIMA4], AVFormatIDKey,
+//         [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+//         [NSNumber numberWithInt: AVAudioQualityMin],
+//         AVEncoderAudioQualityKey,
+//         nil];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentDirectory = [paths objectAtIndex:0];
@@ -192,19 +222,19 @@
         for (SCSound *s in _soundsToSend) {
             CLLocation *loc = [[CLLocation alloc] initWithLatitude:s.coordinate.latitude longitude:s.coordinate.longitude];
             
-            if (![self isWithinTenFeet:loc])
+            if (![self isWithinRange:loc])
                 [toRemove addObject:s];
         }
         
         for (SCSound *p in _closeSounds) {
             CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
             if (![_soundsToSend containsObject:p]) {
-                if ([self isWithinTenFeet:pLoc]) {
+                if ([self isWithinRange:pLoc]) {
                     [_soundsToSend addObject:p];
                 }
             }
             else {
-                if (![self isWithinTenFeet:pLoc]) {
+                if (![self isWithinRange:pLoc]) {
                     [_soundsToSend removeObject:p];
                 }
             }
@@ -268,12 +298,12 @@
         
         CLLocation *pLoc = [[CLLocation alloc] initWithLatitude:p.coordinate.latitude longitude:p.coordinate.longitude];
         if (![_soundsToSend containsObject:p]) {
-            if ([self isWithinTenFeet:pLoc]) {
+            if ([self isWithinRange:pLoc]) {
                 [_soundsToSend addObject:p];
             }
         }
         else {
-            if (![self isWithinTenFeet:pLoc]) {
+            if (![self isWithinRange:pLoc]) {
                 [_soundsToSend removeObject:p];
             }
         }
@@ -328,6 +358,24 @@
     }
 }
 
+- (void) updateRecordButton {
+    _shouldShowRecordButton = !_isUploadingData && (_locationManager.location.horizontalAccuracy < 100);
+    
+    if (!_shouldShowRecordButton && ![_recordButton isHidden]) {
+        [UIView animateWithDuration:0.5 animations:^(void){
+            [_recordButton setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            [_recordButton setHidden:YES];
+        }];
+    }
+    else if (_shouldShowRecordButton && [_recordButton isHidden]) {
+        [_recordButton setHidden:NO];
+        [UIView animateWithDuration:0.5 animations:^(void){
+            [_recordButton setAlpha:1.0];
+        }];
+    }
+}
+
 -(void)playButtonPressed:(id)sender
 {
     // send packaged stuff to rupe!
@@ -350,20 +398,20 @@
         }];
 }
 
-- (void) updateRecordButton {
-    _shouldShowRecordButton = !_isUploadingData && (_locationManager.location.horizontalAccuracy < 50);
-    
-    if (!_shouldShowRecordButton && ![_recordButton isHidden]) {
-        [UIView animateWithDuration:0.5 animations:^(void){
-            [_recordButton setAlpha:0.0];
-        } completion:^(BOOL finished) {
-            [_recordButton setHidden:YES];
+- (void) helpButtonPressed:(id)sender {
+    if ([_helpView isHidden]) {
+        [_helpButton setImage:[UIImage imageNamed:@"exit.png"] forState:UIControlStateNormal];
+        [_helpView setHidden:NO];
+        [UIView animateWithDuration:0.5 animations:^{
+            [_helpView setAlpha:1.0];
         }];
     }
-    else if (_shouldShowRecordButton && [_recordButton isHidden]) {
-        [_recordButton setHidden:NO];
-        [UIView animateWithDuration:0.5 animations:^(void){
-            [_recordButton setAlpha:1.0];
+    else {
+        [_helpButton setImage:[UIImage imageNamed:@"help.png"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.5 animations:^{
+            [_helpView setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            [_helpView setHidden:YES];
         }];
     }
 }
@@ -374,9 +422,9 @@ float milesToMeters(float miles) {
     return 1609.344f * miles;
 }
 
--(bool)isWithinTenFeet:(CLLocation *)loc
+-(bool)isWithinRange:(CLLocation *)loc
 {
-    return (([_locationManager.location distanceFromLocation:loc]*3.28084) <= 50.0);
+    return ([_locationManager.location distanceFromLocation:loc] < 50);
 }
 
 -(bool)soundAlreadyAnnotated:(SCSound *)sound

@@ -65,7 +65,16 @@ static AmazonTVMClient      *tvm = nil;
                     {
                         [AmazonClientManager initClients];
                     }
+                    else {
+                        NSLog(@"Init tvm token failed");
+                    }
                 }
+                else {
+                    NSLog(@"not able to get anon token");
+                }
+            }
+            else {
+                NSLog(@"credentials arent expired");
             }
         }
     }
@@ -85,6 +94,7 @@ static AmazonTVMClient      *tvm = nil;
 
 +(void)initClients
 {
+    NSLog(@"starting the client");
     AmazonCredentials *credentials = [AmazonKeyChainWrapper getCredentialsFromKeyChain];
     
     s3  = [[AmazonS3Client alloc] initWithCredentials:credentials];

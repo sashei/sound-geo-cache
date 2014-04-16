@@ -50,6 +50,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     NSError *trash;
+    [_player stop];
     [[AVAudioSession sharedInstance] setActive: NO error: &trash];
 }
 
@@ -67,6 +68,7 @@
     
     _sounds = soundsSortedByTime;
     [_tableView reloadData];
+    _lastSelected = nil;
 }
 
 - (void) goBack {
@@ -163,6 +165,8 @@
         [_player stop];
         NSLog(@"URL is: %@", [sound soundURL]);
         
+        [[tableView cellForRowAtIndexPath:_lastSelected].imageView setImage:[UIImage imageNamed:@"Play.png"]];
+        
         _lastSelected = indexPath;
         
         NSError *playerError;
@@ -197,6 +201,8 @@
     [[_tableView cellForRowAtIndexPath:_lastSelected].imageView setImage:[UIImage imageNamed:@"Play.png"]];
     _lastSelected = nil;
 }
+
+
 
 
 @end

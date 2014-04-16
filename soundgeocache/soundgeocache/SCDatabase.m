@@ -17,6 +17,8 @@
     self = [super init];
     
     if (self) {
+        [AmazonClientManager s3];
+        
 //        if(self.s3 == nil)
 //        {
 //            // Initial the S3 Client.
