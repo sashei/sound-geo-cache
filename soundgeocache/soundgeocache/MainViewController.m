@@ -34,6 +34,9 @@
         // make location updates very granular
         [_locationManager startUpdatingLocation];
         
+        // for backgrounding location updating
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationReopened) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationBackgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
         
         // the main view that contains the app
         _mainView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -188,6 +191,20 @@
     }
 }
 
+-(void)applicationReopened
+{
+    // when application is reopened, start monitoring more granular location changes again
+    [_locationManager stopMonitoringSignificantLocationChanges];
+    [_locationManager startUpdatingLocation];
+}
+
+-(void)applicationBackgrounding
+{
+    // location manager lowers level of detail in location updates to help preserve battery
+    [_locationManager stopUpdatingLocation];
+    [_locationManager startMonitoringSignificantLocationChanges];
+}
+
 #pragma mark - location & map delegate methods
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -310,7 +327,7 @@
     }
     
     // useful to look at for debugging purposes!
-    NSArray *annotations = _map.annotations;
+    //NSArray *annotations = _map.annotations;
     //NSLog(@"Num annotations: %lu", (unsigned long)[annotations count]);
 }
 
@@ -476,7 +493,17 @@ float milesToMeters(float miles) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //End recieving events
+    //NSLog(@"View disappearing!");
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

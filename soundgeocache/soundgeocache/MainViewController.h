@@ -62,4 +62,6 @@
 
 - (void)removeAllPinsButUserLocation;
 
+-(void)applicationReopened;
+
 @end
