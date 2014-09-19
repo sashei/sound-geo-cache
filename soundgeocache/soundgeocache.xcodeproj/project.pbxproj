@@ -121,7 +121,7 @@
 		67B3E2BD18FE3D8600C9ECDD /* echo-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "echo-help.png"; sourceTree = "<group>"; };
 		67B3E2BE18FE3D8600C9ECDD /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
 		67B3E2C118FE40A500C9ECDD /* echo-help-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "echo-help-box@2x.png"; sourceTree = "<group>"; };
-		7D0C248718F8E61300B83AC9 /* soundgeocache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soundgeocache.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D0C248718F8E61300B83AC9 /* Echo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Echo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0C248A18F8E61300B83AC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D0C248C18F8E61300B83AC9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7D0C248E18F8E61300B83AC9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -221,7 +221,7 @@
 		7D0C248818F8E61300B83AC9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7D0C248718F8E61300B83AC9 /* soundgeocache.app */,
+				7D0C248718F8E61300B83AC9 /* Echo.app */,
 				7D0C24A218F8E61300B83AC9 /* soundgeocacheTests.xctest */,
 			);
 			name = Products;
@@ -338,7 +338,7 @@
 			);
 			name = soundgeocache;
 			productName = soundgeocache;
-			productReference = 7D0C248718F8E61300B83AC9 /* soundgeocache.app */;
+			productReference = 7D0C248718F8E61300B83AC9 /* Echo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7D0C24A118F8E61300B83AC9 /* soundgeocacheTests */ = {
